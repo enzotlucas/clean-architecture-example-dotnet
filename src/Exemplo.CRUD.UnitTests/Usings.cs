@@ -1,0 +1,12 @@
+global using Xunit;
+global using AutoMapper;
+global using Exemplo.CRUD.Application.Commands.CreateProduct;
+global using Exemplo.CRUD.Application.ViewModels;
+global using Exemplo.CRUD.Core.Entities;
+global using Exemplo.CRUD.Core.Exceptions;
+global using Exemplo.CRUD.Core.Repositories;
+global using Exemplo.CRUD.Tests.Fixtures;
+global using Microsoft.Extensions.Logging;
+global using NSubstitute;
+global using Exemplo.CRUD.Application.Queries.GetById;
+global using FluentAssertions;

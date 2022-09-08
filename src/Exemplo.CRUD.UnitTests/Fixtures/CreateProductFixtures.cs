@@ -1,14 +1,6 @@
-﻿using AutoMapper;
-using Exemplo.CRUD.Application.Commands.CreateProduct;
-using Exemplo.CRUD.Application.ViewModels;
-using Exemplo.CRUD.Core.Entities;
-using Exemplo.CRUD.Core.Repositories;
-using Microsoft.Extensions.Logging;
-using NSubstitute;
-
-namespace Exemplo.CRUD.Tests.Mocks
+﻿namespace Exemplo.CRUD.Tests.Fixtures
 {
-    public static class CreateProductMock
+    public static class CreateProductFixtures
     {
         public static CreateProductHandler GenerateValidCreateProductHandler(Product product, ProductViewModel productViewModel)
         {

@@ -1,14 +1,6 @@
-﻿using AutoMapper;
-using Exemplo.CRUD.Application.Queries.GetById;
-using Exemplo.CRUD.Application.ViewModels;
-using Exemplo.CRUD.Core.Entities;
-using Exemplo.CRUD.Core.Repositories;
-using Microsoft.Extensions.Logging;
-using NSubstitute;
-
-namespace Exemplo.CRUD.Tests.Mocks
+﻿namespace Exemplo.CRUD.Tests.Fixtures
 {
-    public static class GetByIdMock
+    public static class GetByIdFixtures
     {
         public static GetByIdHandler GenerateValidHandler(Product product, ProductViewModel productViewModel, GetById request)
         {
@@ -17,6 +9,18 @@ namespace Exemplo.CRUD.Tests.Mocks
 
             var mapper = Substitute.For<IMapper>();
             mapper.Map<ProductViewModel>(Arg.Any<Product>()).Returns(productViewModel);
+
+            var logger = Substitute.For<ILogger<GetByIdHandler>>();
+
+            return new GetByIdHandler(repository, mapper, logger);
+        }
+
+        public static GetByIdHandler GenerateInvalidHandler(GetById request, Product product)
+        {
+            var repository = Substitute.For<IProductRepository>();
+            repository.GetById(request.Id).Returns(Task.FromResult(product));
+
+            var mapper = Substitute.For<IMapper>();
 
             var logger = Substitute.For<ILogger<GetByIdHandler>>();
 
