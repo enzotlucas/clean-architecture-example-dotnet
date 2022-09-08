@@ -1,8 +1,8 @@
-﻿namespace Exemplo.CRUD.Tests.Fixtures
+﻿namespace Exemplo.CRUD.UnitTests.Fixtures.Application
 {
     public static class CreateProductFixtures
     {
-        public static CreateProductHandler GenerateValidCreateProductHandler(Product product, ProductViewModel productViewModel)
+        public static CreateProductHandler GenerateValidHandler(Product product, ProductViewModel productViewModel)
         {
             var repository = Substitute.For<IProductRepository>();
             repository.Create(Arg.Any<Product>()).Returns(Task.FromResult(product));
@@ -16,7 +16,7 @@
             return new CreateProductHandler(repository, mapper, logger);
         }
 
-        public static CreateProductHandler GenerateInvalidCreateProductHandler()
+        public static CreateProductHandler GenerateInvalidHandler()
         {
             var repository = Substitute.For<IProductRepository>();
             var mapper = Substitute.For<IMapper>();

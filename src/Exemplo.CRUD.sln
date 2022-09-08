@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C22A6A77-2D0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FFBE072A-63C3-4EB2-8C48-E2DD3189991E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exemplo.CRUD.UnitTests", "Exemplo.CRUD.UnitTests\Exemplo.CRUD.UnitTests.csproj", "{FBF783E3-2355-4A08-A54F-76808F2CFED6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exemplo.CRUD.UnitTests", "Exemplo.CRUD.UnitTests\Exemplo.CRUD.UnitTests.csproj", "{FBF783E3-2355-4A08-A54F-76808F2CFED6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exemplo.CRUD.IntegrationTests", "Exemplo.CRUD.IntegrationTests\Exemplo.CRUD.IntegrationTests.csproj", "{D0B22BC4-361B-4B8C-B453-28CB72DCCC16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{FBF783E3-2355-4A08-A54F-76808F2CFED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBF783E3-2355-4A08-A54F-76808F2CFED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBF783E3-2355-4A08-A54F-76808F2CFED6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0B22BC4-361B-4B8C-B453-28CB72DCCC16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0B22BC4-361B-4B8C-B453-28CB72DCCC16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0B22BC4-361B-4B8C-B453-28CB72DCCC16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0B22BC4-361B-4B8C-B453-28CB72DCCC16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{F0528B47-4DCB-48FD-AFF1-61DFC937D988} = {C22A6A77-2D0F-4F77-BBD4-E5686BFD3D09}
 		{4A21E4E2-B42B-464D-9BAC-0B50453F8D63} = {C22A6A77-2D0F-4F77-BBD4-E5686BFD3D09}
 		{FBF783E3-2355-4A08-A54F-76808F2CFED6} = {FFBE072A-63C3-4EB2-8C48-E2DD3189991E}
+		{D0B22BC4-361B-4B8C-B453-28CB72DCCC16} = {FFBE072A-63C3-4EB2-8C48-E2DD3189991E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CCD21A8A-89EB-4D4B-A673-48F5A7928275}

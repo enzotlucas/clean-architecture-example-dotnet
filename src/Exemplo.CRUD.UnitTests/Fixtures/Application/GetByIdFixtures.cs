@@ -1,4 +1,4 @@
-﻿namespace Exemplo.CRUD.Tests.Fixtures
+﻿namespace Exemplo.CRUD.UnitTests.Fixtures.Application
 {
     public static class GetByIdFixtures
     {
@@ -26,14 +26,5 @@
 
             return new GetByIdHandler(repository, mapper, logger);
         }
-
-        public static ProductViewModel GenerateViewModelFromEntity(Product product) => new()
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Category = product.Category.Name,
-            CreatedAt = product.CreatedAt,
-            Price = product.Price
-        };
     }
 }

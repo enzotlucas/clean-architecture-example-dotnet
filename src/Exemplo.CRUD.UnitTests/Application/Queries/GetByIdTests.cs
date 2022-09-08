@@ -2,13 +2,13 @@
 {
     public class GetByIdTests
     {
-        [Trait("GetById", "Application")]
+        [Trait("Application_GetById", "UnitTests")]
         [Fact(DisplayName = "Existent id, should return valid product.")]
         public async Task Handle_ExistentId_ShouldReturnValidProduct()
         {
             //Arrange
             var product = new Product("Product Test", 2.5m, "Category");
-            var productViewModel = GetByIdFixtures.GenerateViewModelFromEntity(product);
+            var productViewModel = ProductViewModelFixtures.GenerateFromEntity(product);
             var request = new GetById(product.Id);
 
             var sut = GetByIdFixtures.GenerateValidHandler(product, productViewModel, request);
@@ -23,8 +23,8 @@
             response.Should().NotBeNull();
         }
 
-        [Trait("GetById", "Application")]
-        [Fact]
+        [Trait("Application_GetById", "UnitTests")]
+        [Fact(DisplayName = "Unexistent id, should throw product not found exception.")]
         public async Task Handle_UnexistentId_ShouldThrowBusinessException()
         {
             //Arrange
