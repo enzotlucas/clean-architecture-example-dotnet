@@ -1,6 +1,6 @@
 ﻿namespace Example.CleanArchitecture.Core.Validators
 {
-    public class SaleValidator : AbstractValidator<Sale>
+    public sealed class SaleValidator : AbstractValidator<Sale>
     {
         public SaleValidator()
         {

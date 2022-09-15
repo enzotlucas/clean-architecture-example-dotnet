@@ -1,6 +1,6 @@
 ﻿namespace Example.CleanArchitecture.Core.Exceptions
 {
-    public class InvalidSaleException : BusinessException
+    public sealed class InvalidSaleException : BusinessException
     {
         public InvalidSaleException(IDictionary<string, string[]> validationErrors,
                                     string message = "Invalid sale.")

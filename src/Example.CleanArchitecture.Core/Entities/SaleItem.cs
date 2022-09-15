@@ -1,6 +1,6 @@
 ﻿namespace Example.CleanArchitecture.Core.Entities
 {
-    public class SaleItem
+    public sealed class SaleItem
     {
         public Guid Id { get; private set; } = Guid.NewGuid();
         public int Quantity { get; private set; }

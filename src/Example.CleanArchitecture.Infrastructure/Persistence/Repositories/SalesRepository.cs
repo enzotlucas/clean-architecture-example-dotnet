@@ -1,6 +1,6 @@
 ﻿namespace Example.CleanArchitecture.Infrastructure.Persistence.Repositories
 {
-    public class SalesRepository : ISalesRepository
+    public sealed class SalesRepository : ISalesRepository
     {
 
     }

@@ -1,6 +1,6 @@
 ﻿namespace Example.CleanArchitecture.Infrastructure.Persistence
 {
-    public class ApplicationContext : DbContext
+    public sealed class ApplicationContext : DbContext
     {
         public ApplicationContext(DbContextOptions options) : base(options)
         {

@@ -1,6 +1,6 @@
 ﻿namespace Example.CleanArchitecture.UnitTests.Fixtures
 {
-    public class SaleItemFixture
+    public sealed class SaleItemFixture
     {
         public static IEnumerable<SaleItem> GenerateValidSaleItems(int quantity)
         {

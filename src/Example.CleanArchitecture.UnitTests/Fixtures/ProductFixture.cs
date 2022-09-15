@@ -1,6 +1,6 @@
 ﻿namespace Example.CleanArchitecture.UnitTests.Fixtures
 {
-    public class ProductFixture
+    public sealed class ProductFixture
     {
         private static readonly Random _numberGenerator = new();
         private static readonly ProductValidator _validator = new();

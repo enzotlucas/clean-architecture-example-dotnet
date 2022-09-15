@@ -17,7 +17,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Using Include="Example.CleanArchitecture.API.Configuration"/>
+		<Using Include="Example.CleanArchitecture.API.Configuration" />
+		<Using Include="Example.CleanArchitecture.Core.Repositories" />
+		<Using Include="Example.CleanArchitecture.Infrastructure.Persistence.Repositories" />
+		
+		<Using Include="Microsoft.AspNetCore.Mvc" />
 	</ItemGroup>
 
 </Project>

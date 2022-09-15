@@ -1,6 +1,6 @@
 ﻿namespace Example.CleanArchitecture.UnitTests.Core
 {
-    public class ProductTests
+    public sealed class ProductTests
     {
         [Trait("Product", "Core")]
         [Fact(DisplayName = "Initialize a valid product")]

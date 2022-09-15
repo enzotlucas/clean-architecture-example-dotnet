@@ -1,6 +1,8 @@
 ﻿namespace Example.CleanArchitecture.API.Controllers
 {
-    public class ProductsController
+    [ApiController]
+    [Route("[controller]")]
+    public sealed class ProductsController : ControllerBase
     {
 
     }
