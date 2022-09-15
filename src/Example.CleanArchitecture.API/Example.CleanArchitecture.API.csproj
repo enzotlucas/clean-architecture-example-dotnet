@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Example.CleanArchitecture.Application\Example.CleanArchitecture.Application.csproj" />
+		<ProjectReference Include="..\Example.CleanArchitecture.Core\Example.CleanArchitecture.Core.csproj" />
+		<ProjectReference Include="..\Example.CleanArchitecture.Infrastructure\Example.CleanArchitecture.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Example.CleanArchitecture.API.Configuration"/>
+	</ItemGroup>
+
+</Project>
