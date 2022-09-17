@@ -1,4 +1,4 @@
-﻿namespace Example.CleanArchitecture.UnitTests.Core
+﻿namespace Example.CleanArchitecture.UnitTests.Core.Entities
 {
     public sealed class ProductTests
     {
@@ -47,11 +47,11 @@
             //Act
             var firstAct = () =>
             {
-                var product = new Product(firstName, price, cost, quantity, category, validator);
+                _ = new Product(firstName, price, cost, quantity, category, validator);
             };
             var secondtAct = () =>
             {
-                var product = new Product(secondName, price, cost, quantity, category, validator);
+                _ = new Product(secondName, price, cost, quantity, category, validator);
             };
 
             //Assert
@@ -78,11 +78,11 @@
             //Act
             var firstAct = () =>
             {
-                var product = new Product(name, firstPrice, cost, quantity, category, validator);
+                _ = new Product(name, firstPrice, cost, quantity, category, validator);
             };
             var secondtAct = () =>
             {
-                var product = new Product(name, secondPrice, cost, quantity, category, validator);
+                _ = new Product(name, secondPrice, cost, quantity, category, validator);
             };
 
             //Assert
@@ -108,7 +108,7 @@
             //Act
             var act = () =>
             {
-                var product = new Product(name, price, cost, quantity, category, validator);
+                _ = new Product(name, price, cost, quantity, category, validator);
             };
 
             //Assert
@@ -131,7 +131,7 @@
             //Act
             var act = () =>
             {
-                var product = new Product(name, price, cost, quantity, category, validator);
+                _ = new Product(name, price, cost, quantity, category, validator);
             };
 
             //Assert

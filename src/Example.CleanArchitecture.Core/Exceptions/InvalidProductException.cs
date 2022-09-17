@@ -2,11 +2,12 @@
 {
     public sealed class InvalidProductException : BusinessException
     {
-        public InvalidProductException(IDictionary<string, string[]> validationErrors, 
+        public InvalidProductException(IDictionary<string, string[]> validationErrors = null, 
                                        string message = "Invalid product.") 
             : base(validationErrors, message)
         {
-            ValidationErrors = validationErrors;
+            if(validationErrors is not null)
+                ValidationErrors = validationErrors;
         }
     }
 }

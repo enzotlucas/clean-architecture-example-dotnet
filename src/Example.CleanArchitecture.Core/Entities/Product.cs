@@ -1,6 +1,6 @@
 ﻿namespace Example.CleanArchitecture.Core.Entities
 {
-    public sealed class Product
+    public class Product
     {
         public Guid Id { get; private set; } = Guid.NewGuid();
         public string Name { get; private set; }
@@ -31,6 +31,8 @@
 
             Validate(validator);
         }
+
+        public Product() => Id = Guid.Empty;
 
         private void Validate(IValidator<Product> validator)
         {

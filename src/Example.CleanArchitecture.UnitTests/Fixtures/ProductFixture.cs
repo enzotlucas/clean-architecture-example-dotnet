@@ -16,6 +16,11 @@
                                         category: (Category)_numberGenerator.Next(0, 2),
                                         validator: _validator))
                                 .Generate(quantity);
-        
+
+        public static Product GenerateInvalid() => GenerateInvalidCollection(1).First();
+
+        public static IEnumerable<Product> GenerateInvalidCollection(int quantity) =>
+           new Faker<Product>().Generate(quantity);
+
     }
 }

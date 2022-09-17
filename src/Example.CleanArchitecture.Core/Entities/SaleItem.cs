@@ -1,6 +1,6 @@
 ﻿namespace Example.CleanArchitecture.Core.Entities
 {
-    public sealed class SaleItem
+    public class SaleItem
     {
         public Guid Id { get; private set; } = Guid.NewGuid();
         public int Quantity { get; private set; }
@@ -10,17 +10,25 @@
         public Guid ProductId { get; private set; }
         public Product Product { get; private set; }
 
-        public Guid SaleId { get; private set; }
-        public Product Sale { get; private set; }
-
-        protected SaleItem() { }
-
-        public SaleItem(int quantity, decimal totalPrice, Guid productId, Guid saleId)
+        public SaleItem(int quantity, Product product)
         {
             Quantity = quantity;
-            TotalPrice = totalPrice;
-            ProductId = productId;
-            SaleId = saleId;
+            Product = product;
+            ProductId = product.Id;
+
+            Validate();
+
+            TotalPrice = quantity * Product.Price;
+        }
+        public SaleItem() => Id = Guid.Empty;
+
+        private void Validate()
+        {
+            if (!Product.IsValid)
+                throw new InvalidProductException();
+
+            if (Quantity > Product.Quantity || Quantity < 1)
+                throw new InvalidQuantityException("The quantity is higher than stock");
         }
     }
 }

@@ -2,17 +2,22 @@
 {
     public sealed class SaleItemFixture
     {
-        public static IEnumerable<SaleItem> GenerateValidSaleItems(int quantity)
+        public static SaleItem GenerateValid() => 
+            GenerateValidCollection(1).FirstOrDefault();
+
+        public static IEnumerable<SaleItem> GenerateValidCollection(int quantity)
         {
             var product = ProductFixture.GenerateValid();
 
-            return new Faker<SaleItem>().RuleFor(s => s.Id, Guid.NewGuid())
-                                        .RuleFor(s => s.Quantity, new Random().Next(1, 5))
-                                        .RuleFor(s => s.Product, product)
-                                        .RuleFor(s => s.ProductId, product.Id)
+            return new Faker<SaleItem>().CustomInstantiator(s =>
+                            new SaleItem(quantity: new Random().Next(1, 5),
+                                         product: product))
                                         .Generate(quantity);
         }
 
-        public static SaleItem GenerateValidSaleItem() => GenerateValidSaleItems(1).FirstOrDefault();
+        public static SaleItem GenerateInvalid() =>
+            GenerateInvalidCollection(1).FirstOrDefault();
+        public static IEnumerable<SaleItem> GenerateInvalidCollection(int quantity) => 
+            new Faker<SaleItem>().Generate(quantity);
     }
 }
