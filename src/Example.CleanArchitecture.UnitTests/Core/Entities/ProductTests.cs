@@ -56,10 +56,10 @@
 
             //Assert
             firstAct.Should().Throw<InvalidProductException>()
-                .WithMessage("Invalid product.");
+                .WithMessage("Invalid product");
 
             secondtAct.Should().Throw<InvalidProductException>()
-                .WithMessage("Invalid product.");
+                .WithMessage("Invalid product");
         }
 
         [Trait("Product", "Core")]
@@ -87,10 +87,10 @@
 
             //Assert
             firstAct.Should().Throw<InvalidProductException>()
-                .WithMessage("Invalid product.");
+                .WithMessage("Invalid product");
 
             secondtAct.Should().Throw<InvalidProductException>()
-                .WithMessage("Invalid product.");
+                .WithMessage("Invalid product");
         }
 
         [Trait("Product", "Core")]
@@ -113,7 +113,7 @@
 
             //Assert
             act.Should().Throw<InvalidProductException>()
-                .WithMessage("Invalid product.");
+                .WithMessage("Invalid product");
         }
 
         [Trait("Product", "Core")]
@@ -136,7 +136,7 @@
 
             //Assert
             act.Should().Throw<InvalidProductException>()
-                .WithMessage("Invalid product.");
+                .WithMessage("Invalid product");
         }
 
         [Trait("Product", "Core")]
