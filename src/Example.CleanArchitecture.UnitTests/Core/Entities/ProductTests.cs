@@ -1,7 +1,12 @@
 ﻿namespace Example.CleanArchitecture.UnitTests.Core.Entities
 {
+    [Collection(nameof(CoreFixtureCollection))]
     public sealed class ProductTests
     {
+        private readonly CoreFixture _fixture;
+
+        public ProductTests(CoreFixture fixture) => _fixture = fixture;
+
         [Trait("Product", "Core")]
         [Fact(DisplayName = "Initialize a valid product")]
         public void Constructor_ValidInformations_ShouldReturnProduct()
@@ -144,7 +149,7 @@
         public void Update_ValidInformation_ShouldUpdateSucessfully()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var name = "New Product name";
             var quantity = 14;
             var price = (decimal)new Random().Next(200, 250);
@@ -172,7 +177,7 @@
         public void Update_ValidName_ShouldUpdateNameSucessfully()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var name = "New Product name";
             var quantity = product.Quantity;
             var price = product.Price;
@@ -200,7 +205,7 @@
         public void Update_ValidQuantity_ShouldUpdateQuantitySucessfully()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var name = product.Name;
             var quantity = 14;
             var price = product.Price;
@@ -228,7 +233,7 @@
         public void Update_ValidPrice_ShouldUpdatePriceSucessfully()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var name = product.Name;
             var quantity = product.Quantity;
             var price = (decimal)new Random().Next(200, 250);
@@ -256,7 +261,7 @@
         public void Update_ValidCost_ShouldUpdateCostSucessfully()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var name = product.Name;
             var quantity = product.Quantity;
             var price = product.Price;
@@ -284,7 +289,7 @@
         public void Update_ValidEnabled_ShouldUpdateEnabledSucessfully()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var name = product.Name;
             var quantity = product.Quantity;
             var price = product.Price;
@@ -312,7 +317,7 @@
         public void Update_InvalidName_ShouldThrow()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var name = string.Empty;
             var quantity = product.Quantity;
             var cost = product.Cost;
@@ -336,7 +341,7 @@
         public void Update_InvalidQuantity_ShouldThrow()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var name = product.Name;
             var quantity = -1;
             var cost = product.Cost;
@@ -360,7 +365,7 @@
         public void Update_InvalidPrice_ShouldThrow()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var name = product.Name;
             var quantity = product.Quantity;
             var cost = product.Cost;
@@ -394,7 +399,7 @@
         public void Update_InvalidCost_ShouldThrow()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var name = product.Name;
             var quantity = product.Quantity;
             var price = product.Price;
@@ -428,7 +433,7 @@
         public void Disable_ValidProduct_ShouldDisableProduct()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
 
             //Act
             product.Disable();
@@ -442,7 +447,7 @@
         public void Enable_ValidProduct_ShouldEnableProduct()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
 
             //Act
             product.Enable();
@@ -456,7 +461,7 @@
         public void AddStock_ValidQuantity_ShouldAddQuantity()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var quantity = product.Quantity;
 
             //Act
@@ -472,7 +477,7 @@
         public void AddStock_InvalidQuantity_ShouldThrow()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
 
             //Act
             var act = () => product.AddStock(0);
@@ -487,7 +492,7 @@
         public void WithdrawFromStock_ValidQuantity_ShouldAddQuantity()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var quantity = product.Quantity;
 
             //Act
@@ -503,7 +508,7 @@
         public void WithdrawFromStock_InvalidQuantity_ShouldThrow()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var quantity = product.Quantity;
 
             //Act
@@ -524,7 +529,7 @@
         public void ToString_ShouldReturnValidString()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var expected = $"Id:{product.Id};" +
                            $"Name:{product.Name};" +
                            $"Quantity:{product.Quantity};" +

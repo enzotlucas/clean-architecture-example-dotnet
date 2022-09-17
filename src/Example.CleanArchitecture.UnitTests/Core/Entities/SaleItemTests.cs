@@ -1,13 +1,19 @@
-﻿namespace Example.CleanArchitecture.UnitTests.Core.Entities
+﻿
+namespace Example.CleanArchitecture.UnitTests.Core.Entities
 {
+    [Collection(nameof(CoreFixtureCollection))]
     public class SaleItemTests
     {
+        private readonly CoreFixture _fixture;
+
+        public SaleItemTests(CoreFixture fixture) => _fixture = fixture;
+
         [Trait("SaleItem", "Core")]
         [Fact(DisplayName = "Initialize a valid sale item.")]
         public void Constructor_ValidInformations_ShouldReturnSaleItem()
         {
             //Arrange
-            var product = ProductFixture.GenerateValid();
+            var product = _fixture.Product.GenerateValid();
             var quantity = product.Quantity - 1;
 
             var expectedTotalPrice = quantity * product.Price;
@@ -29,8 +35,8 @@
         public void Constructor_InvalidInformations_ShouldThrow()
         {
             //Arrange
-            var validProduct = ProductFixture.GenerateValid();
-            var invalidProduct = ProductFixture.GenerateInvalid();
+            var validProduct = _fixture.Product.GenerateValid();
+            var invalidProduct = _fixture.Product.GenerateInvalid();
 
             var firstInvalidQuantity = validProduct.Quantity + 1;
             var secondInvalidQuantity = 0;

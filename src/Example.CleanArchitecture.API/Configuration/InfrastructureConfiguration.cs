@@ -6,6 +6,7 @@
         {
             //Add db
 
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
             builder.Services.AddScoped<ISalesRepository, SalesRepository>();
             return builder;

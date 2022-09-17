@@ -1,13 +1,13 @@
-﻿namespace Example.CleanArchitecture.UnitTests.Fixtures
+﻿namespace Example.CleanArchitecture.UnitTests.Fixtures.Entities
 {
     public sealed class ProductFixture
     {
-        private static readonly Random _numberGenerator = new();
-        private static readonly ProductValidator _validator = new();
+        private readonly Random _numberGenerator = new();
+        private readonly ProductValidator _validator = new();
 
-        public static Product GenerateValid() => GenerateValidCollection(1).First();
+        public Product GenerateValid() => GenerateValidCollection(1).First();
 
-        public static IEnumerable<Product> GenerateValidCollection(int quantity) =>
+        public IEnumerable<Product> GenerateValidCollection(int quantity) =>
             new Faker<Product>().CustomInstantiator(p =>
                             new Product(name: $"Product Name {_numberGenerator.Next(1, 10000)}",
                                         price: _numberGenerator.Next(50, 100),
@@ -17,9 +17,9 @@
                                         validator: _validator))
                                 .Generate(quantity);
 
-        public static Product GenerateInvalid() => GenerateInvalidCollection(1).First();
+        public Product GenerateInvalid() => GenerateInvalidCollection(1).First();
 
-        public static IEnumerable<Product> GenerateInvalidCollection(int quantity) =>
+        public IEnumerable<Product> GenerateInvalidCollection(int quantity) =>
            new Faker<Product>().Generate(quantity);
 
     }

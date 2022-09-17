@@ -1,12 +1,26 @@
 ﻿namespace Example.CleanArchitecture.UnitTests.Application.Commands
 {
+    [Collection(nameof(ApplicationFixtureCollection))]
     public class CreateProductTests
     {
+        private readonly ApplicationFixture _fixture;
+
+        public CreateProductTests(ApplicationFixture fixture) => _fixture = fixture;
+
         [Trait("CreateProduct", "Application")]
         [Fact(DisplayName ="Initialize valid create product command.")]
-        public void Constructor_ValidProductInformation_ShouldCreateCommandCorrectly()
+        public async Task Constructor_ValidProductInformation_ShouldCreateCommandCorrectly()
         {
-            
+            //Arrange
+            var product = _fixture.Product.GenerateValid();
+            var request = _fixture.CreateProduct.GenerateCommandFromEntity(product);
+
+            var sut = _fixture.CreateProduct.GenerateValidHandler(request, product);
+
+            //Act
+            var response = await sut.Handle(request, CancellationToken.None);
+
+            //Assert
         }
 
         [Trait("CreateProduct", "Application")]

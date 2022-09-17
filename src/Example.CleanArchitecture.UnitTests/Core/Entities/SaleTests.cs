@@ -1,13 +1,18 @@
 ﻿namespace Example.CleanArchitecture.UnitTests.Core.Entities
 {
+    [Collection(nameof(CoreFixtureCollection))]
     public sealed class SaleTests
     {
+        private readonly CoreFixture _fixture;
+
+        public SaleTests(CoreFixture fixture) => _fixture = fixture;
+
         [Trait("Sale", "Core")]
         [Fact(DisplayName = "Initialize a valid sale")]
         public void Constructor_ValidInformations_ShouldReturnSale()
         {
             //Arrange
-            var items = SaleItemFixture.GenerateValidCollection(5);
+            var items = _fixture.GenerateValidSaleItemCollection(5);
             var validator = new SaleValidator();
 
             var expectedTotalPrice = items.Sum(i => i.TotalPrice);
@@ -27,7 +32,7 @@
         {
             //Arrange
             var firstItems = new List<SaleItem>();
-            var secondItems = SaleItemFixture.GenerateInvalidCollection(4);
+            var secondItems = _fixture.SaleItem.GenerateInvalidCollection(4);
             var validator = new SaleValidator();
 
             //Act

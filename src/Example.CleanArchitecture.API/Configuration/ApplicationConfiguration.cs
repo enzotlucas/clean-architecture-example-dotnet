@@ -4,6 +4,7 @@
     {
         public static WebApplicationBuilder AddApplicationServices(this WebApplicationBuilder builder)
         {
+            builder.Services.AddMediatR(typeof(CreateProductCommand));
             return builder;
         }
 
