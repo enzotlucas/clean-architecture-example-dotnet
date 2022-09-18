@@ -1,3 +1,8 @@
 # clean-architecture-example-dotnet
 
-Simple example i created in a call with friends
+
+Add migrations
+```
+Add-Migration Initial -OutputDir "Persistence/Migrations"
+Update-Database
+```
