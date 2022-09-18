@@ -1,7 +1,7 @@
 ﻿namespace Example.CleanArchitecture.API.Controllers
 {
     [ApiController]
-    [ApiVersion("1")]
+    [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public sealed class ProductsController : ControllerBase
     {

@@ -11,6 +11,7 @@
 		<PackageReference Include="MediatR" Version="10.0.1" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.9">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -32,16 +33,21 @@
 		<Using Include="Example.CleanArchitecture.Infrastructure.Persistence.Repositories" />
 		<Using Include="Example.CleanArchitecture.Application.Commands.CreateProduct" />
 		<Using Include="Example.CleanArchitecture.Application.Queries.GetProductById" />
+		<Using Include="Example.CleanArchitecture.API.Configuration.Middlewares" />
 		<Using Include="Example.CleanArchitecture.Infrastructure.Persistence" />
 		<Using Include="Example.CleanArchitecture.Core.DomainObjects" />
 		<Using Include="Example.CleanArchitecture.Application.ViewModels" />
 		<Using Include="Example.CleanArchitecture.Application.AutoMapper" />
 		<Using Include="Example.CleanArchitecture.Core.Exceptions" />
 		
+		<Using Include="Microsoft.AspNetCore.Mvc.ApiExplorer" />
+		<Using Include="Microsoft.OpenApi.Models" />
+		<Using Include="Swashbuckle.AspNetCore.SwaggerGen" />
 		<Using Include="Microsoft.AspNetCore.Mvc" />
 		<Using Include="Newtonsoft.Json" />
 		<Using Include="Microsoft.EntityFrameworkCore" />
 		<Using Include="MediatR" />
+		<Using Include="Microsoft.Extensions.Options" />
 		<Using Include="System.Net" />
 	</ItemGroup>
 
