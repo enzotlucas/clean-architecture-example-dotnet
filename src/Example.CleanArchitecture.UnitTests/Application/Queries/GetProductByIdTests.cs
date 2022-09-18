@@ -1,6 +1,4 @@
-﻿using Example.CleanArchitecture.Application.Queries.GetProductById;
-
-namespace Example.CleanArchitecture.UnitTests.Application.Queries
+﻿    namespace Example.CleanArchitecture.UnitTests.Application.Queries
 {
     [Collection(nameof(ApplicationFixtureCollection))]
     public class GetProductByIdTests
