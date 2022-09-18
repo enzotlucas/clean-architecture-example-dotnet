@@ -10,11 +10,13 @@
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 		<PackageReference Include="MediatR" Version="10.0.1" />
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.9">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
+		<PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 	</ItemGroup>
 
@@ -32,10 +34,15 @@
 		<Using Include="Example.CleanArchitecture.Application.Queries.GetProductById" />
 		<Using Include="Example.CleanArchitecture.Infrastructure.Persistence" />
 		<Using Include="Example.CleanArchitecture.Core.DomainObjects" />
+		<Using Include="Example.CleanArchitecture.Application.ViewModels" />
+		<Using Include="Example.CleanArchitecture.Application.AutoMapper" />
+		<Using Include="Example.CleanArchitecture.Core.Exceptions" />
 		
 		<Using Include="Microsoft.AspNetCore.Mvc" />
+		<Using Include="Newtonsoft.Json" />
 		<Using Include="Microsoft.EntityFrameworkCore" />
 		<Using Include="MediatR" />
+		<Using Include="System.Net" />
 	</ItemGroup>
 
 </Project>

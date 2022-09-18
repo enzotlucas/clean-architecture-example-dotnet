@@ -6,7 +6,7 @@
         {
             builder.Services.AddMediatR(typeof(CreateProductCommand));
 
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            builder.Services.AddAutoMapper(typeof(ProductProfile));
 
             return builder;
         }

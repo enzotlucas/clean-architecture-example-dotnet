@@ -2,19 +2,27 @@
 {
     public sealed class ProductsRepository : IProductsRepository
     {
-        public Task<Product> CreateAsync(Product product)
+        private readonly ApplicationContext _context;
+
+        public ProductsRepository(ApplicationContext context) 
+            => _context = context;
+
+        public async Task<Product> CreateAsync(Product product)
         {
-            throw new NotImplementedException();
+            await _context.Products.AddAsync(product);
+
+            return product;
         }
 
-        public Task<bool> ExistsAsync(Product product)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<bool> ExistsAsync(Product product) => 
+            await _context.Products.AnyAsync(p => p.Name.Equals(product.Name) &&
+                                                  p.Category.Equals(product.Category));
 
-        public Task<Product> GetById(Guid guid)
+        public async Task<Product> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id.Equals(id));
+
+            return product ?? new Product();
         }
     }
 }

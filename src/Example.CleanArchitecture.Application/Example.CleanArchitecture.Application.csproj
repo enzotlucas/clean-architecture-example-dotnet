@@ -26,6 +26,8 @@
 		<Using Include="Example.CleanArchitecture.Application.ViewModels" />
 		<Using Include="Example.CleanArchitecture.Core.Entities" />
 		<Using Include="Example.CleanArchitecture.Core.Exceptions" />
+		<Using Include="Example.CleanArchitecture.Application.Commands.CreateProduct" />
+		<Using Include="Example.CleanArchitecture.Core.Validators" />
 
 		<Using Include="MediatR" />
 		<Using Include="AutoMapper" />
