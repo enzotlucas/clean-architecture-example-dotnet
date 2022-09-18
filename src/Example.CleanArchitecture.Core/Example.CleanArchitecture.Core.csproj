@@ -15,6 +15,7 @@
 		<Using Include="Example.CleanArchitecture.Core.Exceptions" />
 		<Using Include="Example.CleanArchitecture.Core.Repositories" />
 		<Using Include="Example.CleanArchitecture.Core.ValueObjects" />
+		<Using Include="System.ComponentModel.DataAnnotations.Schema" />
 		<Using Include="FluentValidation" />
 	</ItemGroup>
 </Project>

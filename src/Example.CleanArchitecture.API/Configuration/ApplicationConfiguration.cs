@@ -5,6 +5,9 @@
         public static WebApplicationBuilder AddApplicationServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddMediatR(typeof(CreateProductCommand));
+
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             return builder;
         }
 

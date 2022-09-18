@@ -9,6 +9,8 @@
         //EF
         public Guid ProductId { get; private set; }
         public Product Product { get; private set; }
+        public Sale Sale { get; set; }
+        public Guid SaleId { get; set; }
 
         public SaleItem(int quantity, Product product)
         {

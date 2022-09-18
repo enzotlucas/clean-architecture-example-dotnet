@@ -4,6 +4,12 @@
     {
         public static WebApplicationBuilder AddApiServices(this WebApplicationBuilder builder)
         {
+            builder.Configuration
+                   .SetBasePath(builder.Environment.ContentRootPath)
+                   .AddJsonFile("appsettings.json", true, true)
+                   .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
+                   .AddEnvironmentVariables();
+
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

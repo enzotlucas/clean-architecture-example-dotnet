@@ -9,9 +9,14 @@
         public int Quantity { get; private set; }
         public Category Category { get; private set; }
         public bool Enabled { get; private set; }
-        public bool IsValid => Id != Guid.Empty;
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
+
+        [NotMapped]
+        public bool IsValid => Id != Guid.Empty;
+
+        //EF
+        public IEnumerable<SaleItem> SaleItems { get; set; }
 
         public Product(string name, 
                        decimal price, 

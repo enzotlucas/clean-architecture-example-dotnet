@@ -6,6 +6,11 @@
         public IEnumerable<SaleItem> Items { get; private set; }
         public decimal TotalPrice { get; private set; }
 
+        [NotMapped]
+        public bool IsValid => Id != Guid.Empty;
+
+        public Sale() => Id = Guid.Empty;
+
         public Sale(IEnumerable<SaleItem> items, IValidator<Sale> validator)
         {
             Items = items;
