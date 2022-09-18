@@ -3,5 +3,7 @@
     public class GetProductByIdQuery : IRequest<ProductViewModel>
     {
         public Guid Id { get; set; }
+
+        public GetProductByIdQuery(Guid id) => Id = id;
     }
 }

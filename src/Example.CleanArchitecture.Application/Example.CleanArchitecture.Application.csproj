@@ -7,6 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Include="..\.editorconfig" Link=".editorconfig" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="11.0.1" />
 		<PackageReference Include="MediatR" Version="10.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
@@ -20,6 +24,8 @@
 		<Using Include="Example.CleanArchitecture.Core.ValueObjects" />
 		<Using Include="Example.CleanArchitecture.Core.DomainObjects" />
 		<Using Include="Example.CleanArchitecture.Application.ViewModels" />
+		<Using Include="Example.CleanArchitecture.Core.Entities" />
+		<Using Include="Example.CleanArchitecture.Core.Exceptions" />
 
 		<Using Include="MediatR" />
 		<Using Include="AutoMapper" />

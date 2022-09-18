@@ -7,7 +7,12 @@
             throw new NotImplementedException();
         }
 
-        public Task<bool> ExistsAsync(string name, decimal price, decimal cost)
+        public Task<bool> ExistsAsync(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Product> GetById(Guid guid)
         {
             throw new NotImplementedException();
         }

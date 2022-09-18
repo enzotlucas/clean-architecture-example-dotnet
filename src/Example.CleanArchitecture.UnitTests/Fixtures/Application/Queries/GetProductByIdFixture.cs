@@ -1,13 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Example.CleanArchitecture.UnitTests.Fixtures.Queries
+﻿namespace Example.CleanArchitecture.UnitTests.Fixtures.Queries
 {
     public class GetProductByIdFixture
     {
+        public GetProductByIdQueryHandler GenerateValidHandler(Product product, ProductViewModel productViewModel)
+        {
+            var uow = Substitute.For<IUnitOfWork>();
+            uow.Products.GetById(Arg.Any<Guid>()).Returns(product);
 
+
+            var mapper = Substitute.For<IMapper>();
+            mapper.Map<ProductViewModel>(Arg.Any<Product>()).Returns(productViewModel);
+
+            return new GetProductByIdQueryHandler(uow, mapper);
+        }
+
+        public GetProductByIdQueryHandler GenerateInvalidHandler()
+        {
+            var uow = Substitute.For<IUnitOfWork>();
+            uow.Products.GetById(Arg.Any<Guid>()).Returns(new Product());
+
+            var mapper = Substitute.For<IMapper>();
+
+            return new GetProductByIdQueryHandler(uow, mapper);
+        }
     }
 }

@@ -3,18 +3,23 @@
     public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductViewModel>
     {
         private readonly IUnitOfWork _uow;
-        private readonly ILogger<GetProductByIdQueryHandler> _logger;
+        private readonly IMapper _mapper;
 
-        public GetProductByIdQueryHandler(IUnitOfWork uow,
-                                          ILogger<GetProductByIdQueryHandler> logger)
+        public GetProductByIdQueryHandler(IUnitOfWork uow, 
+                                          IMapper mapper)
         {
             _uow = uow;
-            _logger = logger;
+            _mapper = mapper;
         }
 
-        public Task<ProductViewModel> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ProductViewModel> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var product = await _uow.Products.GetById(request.Id);
+
+            if (!product.IsValid)
+                throw new ProductNotFoundException();
+
+            return _mapper.Map<ProductViewModel>(product);
         }
     }
 }

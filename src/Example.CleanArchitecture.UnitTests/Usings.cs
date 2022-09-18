@@ -17,9 +17,12 @@ global using Example.CleanArchitecture.Core.DomainObjects;
 
 //Application
 global using Example.CleanArchitecture.Application.Commands.CreateProduct;
+global using Example.CleanArchitecture.Application.Queries.GetProductById;
+global using Example.CleanArchitecture.Application.ViewModels;
 
 //Tests
 global using Example.CleanArchitecture.UnitTests.Fixtures.Application;
 global using Example.CleanArchitecture.UnitTests.Fixtures.Entities;
 global using Example.CleanArchitecture.UnitTests.Fixtures.Commands;
 global using Example.CleanArchitecture.UnitTests.Fixtures.Queries;
+global using Example.CleanArchitecture.UnitTests.Fixtures.Application.ViewModels;

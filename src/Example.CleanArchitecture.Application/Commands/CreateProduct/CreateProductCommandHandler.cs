@@ -15,9 +15,23 @@
             _mapper = mapper;
         }
 
-        public Task<ProductViewModel> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+        public async Task<ProductViewModel> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation("Product creation atempt", request);
+
+            var product = _mapper.Map<Product>(request);
+
+            if (await _uow.Products.ExistsAsync(product))
+                throw new ProductExistsException();
+
+            await _uow.Products.CreateAsync(product);
+
+            if (!await _uow.SaveChangesAsync())
+                throw new InfrastructureException("Unable to create product.");
+
+            _logger.LogInformation($"Product created, product id: {product.Id}", product);
+
+            return _mapper.Map<ProductViewModel>(product);
         }
     }
 }
