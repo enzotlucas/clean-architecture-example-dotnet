@@ -2,6 +2,10 @@
 {
     public class CreateProductFixture
     {
+        private readonly Random _numberGenerator;
+
+        public CreateProductFixture() => _numberGenerator = new Random();
+
         public CreateProductCommandHandler GenerateValidHandler(CreateProductCommand request, 
                                                                 Product product,
                                                                 ProductViewModel productViewModel)
@@ -40,6 +44,24 @@
             Cost = product.Cost,
             Quantity = product.Quantity,
             Category = product.Category
+        };
+
+        public CreateProductCommand GenerateValidCommand() => new()
+        {
+            Name = "Product name",
+            Price = _numberGenerator.Next(50, 100),
+            Cost = _numberGenerator.Next(10, 49),
+            Quantity = _numberGenerator.Next(1, 6),
+            Category = (Category)_numberGenerator.Next(0, 2)
+        };
+
+        public CreateProductCommand GenerateInvalidCommand() => new()
+        {
+            Name = string.Empty,
+            Price = _numberGenerator.Next(0, 4),
+            Cost = _numberGenerator.Next(10, 50),
+            Quantity = _numberGenerator.Next(1, 6),
+            Category = (Category)_numberGenerator.Next(0, 2)
         };
     }
 }

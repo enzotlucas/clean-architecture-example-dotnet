@@ -27,6 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Example.CleanArchitecture.API\Example.CleanArchitecture.API.csproj" />
 		<ProjectReference Include="..\Example.CleanArchitecture.Application\Example.CleanArchitecture.Application.csproj" />
 		<ProjectReference Include="..\Example.CleanArchitecture.Core\Example.CleanArchitecture.Core.csproj" />
 	</ItemGroup>
