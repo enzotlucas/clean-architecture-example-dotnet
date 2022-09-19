@@ -14,6 +14,7 @@ global using Example.CleanArchitecture.API.Controllers;
 
 //Application
 global using Example.CleanArchitecture.Application.Commands.CreateProduct;
+global using Example.CleanArchitecture.Application.Commands.DeleteProduct;
 global using Example.CleanArchitecture.Application.Queries.GetProductById;
 global using Example.CleanArchitecture.Application.ViewModels;
 
