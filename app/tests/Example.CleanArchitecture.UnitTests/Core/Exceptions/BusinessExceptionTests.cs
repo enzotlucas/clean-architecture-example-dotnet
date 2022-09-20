@@ -31,7 +31,7 @@
             };
 
             //Assert
-            act.Should().Throw<BusinessException>()
+            act.Should().ThrowExactly<BusinessException>()
                         .WithMessage(message);
         }
 
@@ -46,7 +46,7 @@
             var act = () => { throw new BusinessException(message); };
 
             //Assert
-            act.Should().Throw<BusinessException>()
+            act.Should().ThrowExactly<BusinessException>()
                         .WithMessage(message);
         }
     }

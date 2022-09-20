@@ -53,7 +53,7 @@
             var act = async () => { await sut.Handle(request, CancellationToken.None); };
 
             //Assert
-            act.Should().ThrowAsync<ProductNotFoundException>();
+            act.Should().ThrowExactlyAsync<ProductNotFoundException>();
         }
     }
 }

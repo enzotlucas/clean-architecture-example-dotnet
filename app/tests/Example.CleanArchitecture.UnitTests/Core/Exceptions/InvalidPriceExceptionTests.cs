@@ -10,7 +10,7 @@
             var act = () => { throw new InvalidPriceException(); };
 
             //Assert
-            act.Should().Throw<InvalidPriceException>()
+            act.Should().ThrowExactly<InvalidPriceException>()
                         .WithMessage("Invalid price");
         }
 
@@ -25,7 +25,7 @@
             var act = () => { throw new InvalidPriceException(message); };
 
             //Assert
-            act.Should().Throw<InvalidPriceException>()
+            act.Should().ThrowExactly<InvalidPriceException>()
                         .WithMessage(message);
         }
     }

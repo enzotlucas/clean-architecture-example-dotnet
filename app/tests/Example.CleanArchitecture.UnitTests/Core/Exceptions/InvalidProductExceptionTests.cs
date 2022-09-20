@@ -30,7 +30,7 @@
             };
 
             //Assert
-            act.Should().Throw<InvalidProductException>()
+            act.Should().ThrowExactly<InvalidProductException>()
                         .WithMessage("Invalid product");
         }
 
@@ -63,7 +63,7 @@
             };
 
             //Assert
-            act.Should().Throw<InvalidProductException>()
+            act.Should().ThrowExactly<InvalidProductException>()
                         .WithMessage(message);
         }
 
@@ -75,7 +75,7 @@
             var act = () => { throw new InvalidProductException(); };
 
             //Assert
-            act.Should().Throw<InvalidProductException>()
+            act.Should().ThrowExactly<InvalidProductException>()
                         .WithMessage("Invalid product");
         }
 
@@ -90,7 +90,7 @@
             var act = () => { throw new InvalidProductException(message); };
 
             //Assert
-            act.Should().Throw<InvalidProductException>()
+            act.Should().ThrowExactly<InvalidProductException>()
                         .WithMessage(message);
         }
     }

@@ -29,13 +29,7 @@
             var product = _fixture.Product.GenerateValid();
             var request = new DeleteProductCommand(product.Id);
 
-            var uow = Substitute.For<IUnitOfWork>();
-            uow.Products.GetByIdAsync(Arg.Any<Guid>()).Returns(Task.FromResult(product));
-            uow.SaveChangesAsync().Returns(Task.FromResult(true));
-
-            var logger = Substitute.For<ILogger<DeleteProductCommandHandler>>();
-
-            var sut = new DeleteProductCommandHandler(uow, logger);
+            var sut = _fixture.DeleteProduct.GenerateValidHandler(product);
 
             //Act
             var act = async () => await sut.Handle(request, CancellationToken.None);
@@ -52,19 +46,13 @@
             var product = _fixture.Product.GenerateInvalid();
             var request = new DeleteProductCommand(Guid.NewGuid());
 
-            var uow = Substitute.For<IUnitOfWork>();
-            uow.Products.GetByIdAsync(Arg.Any<Guid>()).Returns(Task.FromResult(product));
-            uow.SaveChangesAsync().Returns(Task.FromResult(true));
-
-            var logger = Substitute.For<ILogger<DeleteProductCommandHandler>>();
-
-            var sut = new DeleteProductCommandHandler(uow, logger);
+            var sut = _fixture.DeleteProduct.GenerateValidHandler(product);
 
             //Act
             var act = async () => await sut.Handle(request, CancellationToken.None);
 
             //Assert
-            await act.Should().ThrowAsync<ProductNotFoundException>();
+            await act.Should().ThrowExactlyAsync<ProductNotFoundException>();
         }
 
         [Trait("DeleteProduct", "Application")]
@@ -75,19 +63,13 @@
             var product = _fixture.Product.GenerateValid();
             var request = new DeleteProductCommand(product.Id);
 
-            var uow = Substitute.For<IUnitOfWork>();
-            uow.Products.GetByIdAsync(Arg.Any<Guid>()).Returns(Task.FromResult(product));
-            uow.SaveChangesAsync().Returns(Task.FromResult(false));
-
-            var logger = Substitute.For<ILogger<DeleteProductCommandHandler>>();
-
-            var sut = new DeleteProductCommandHandler(uow, logger);
+            var sut = _fixture.DeleteProduct.GenerateInvalidHandler(product);
 
             //Act
             var act = async () => await sut.Handle(request, CancellationToken.None);
 
             //Assert
-            await act.Should().ThrowAsync<InfrastructureException>();
+            await act.Should().ThrowExactlyAsync<InfrastructureException>();
         }
     }
 }

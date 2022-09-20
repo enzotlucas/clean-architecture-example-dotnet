@@ -10,7 +10,7 @@
             var act = () => { throw new InvalidQuantityException(); };
 
             //Assert
-            act.Should().Throw<InvalidQuantityException>()
+            act.Should().ThrowExactly<InvalidQuantityException>()
                         .WithMessage("Invalid quantity");
         }
 
@@ -25,7 +25,7 @@
             var act = () => { throw new InvalidQuantityException(message); };
 
             //Assert
-            act.Should().Throw<InvalidQuantityException>()
+            act.Should().ThrowExactly<InvalidQuantityException>()
                         .WithMessage(message);
         }
     }

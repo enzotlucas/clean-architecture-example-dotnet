@@ -40,8 +40,8 @@
             var secondAct = () => { _ = new Sale(secondItems, validator); };
 
             //Assert
-            firstAct.Should().Throw<InvalidSaleException>();
-            secondAct.Should().Throw<InvalidSaleException>();
+            firstAct.Should().ThrowExactly<InvalidSaleException>();
+            secondAct.Should().ThrowExactly<InvalidSaleException>();
         }
     }
 }

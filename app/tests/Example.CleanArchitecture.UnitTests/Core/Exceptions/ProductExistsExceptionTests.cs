@@ -16,7 +16,7 @@ namespace Example.CleanArchitecture.UnitTests.Core.Exceptions
             var act = () => { throw new ProductExistsException(); };
 
             //Assert
-            act.Should().Throw<ProductExistsException>()
+            act.Should().ThrowExactly<ProductExistsException>()
                         .WithMessage("Product already exists");
         }
 
@@ -31,7 +31,7 @@ namespace Example.CleanArchitecture.UnitTests.Core.Exceptions
             var act = () => { throw new ProductExistsException(message); };
 
             //Assert
-            act.Should().Throw<ProductExistsException>()
+            act.Should().ThrowExactly<ProductExistsException>()
                         .WithMessage(message);
         }
     }

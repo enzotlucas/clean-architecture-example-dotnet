@@ -49,11 +49,11 @@ namespace Example.CleanArchitecture.UnitTests.Core.Entities
             var thirdAct = () => { _ = new SaleItem(validQuantity, invalidProduct); };
 
             //Assert
-            firstAct.Should().Throw<InvalidQuantityException>()
+            firstAct.Should().ThrowExactly<InvalidQuantityException>()
                              .WithMessage("The quantity is higher than stock");
-            secondAct.Should().Throw<InvalidQuantityException>()
+            secondAct.Should().ThrowExactly<InvalidQuantityException>()
                               .WithMessage("The quantity is higher than stock");
-            thirdAct.Should().Throw<InvalidProductException>();
+            thirdAct.Should().ThrowExactly<InvalidProductException>();
         }
     }
 }

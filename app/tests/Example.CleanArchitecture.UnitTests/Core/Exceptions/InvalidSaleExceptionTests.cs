@@ -30,7 +30,7 @@
             };
 
             //Assert
-            act.Should().Throw<InvalidSaleException>()
+            act.Should().ThrowExactly<InvalidSaleException>()
                         .WithMessage("Invalid sale");
         }
 
@@ -63,7 +63,7 @@
             };
 
             //Assert
-            act.Should().Throw<InvalidSaleException>()
+            act.Should().ThrowExactly<InvalidSaleException>()
                         .WithMessage(message);
         }
     }

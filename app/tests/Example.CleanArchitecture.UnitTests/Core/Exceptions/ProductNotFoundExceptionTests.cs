@@ -16,7 +16,7 @@ namespace Example.CleanArchitecture.UnitTests.Core.Exceptions
             var act = () => { throw new ProductNotFoundException(); };
 
             //Assert
-            act.Should().Throw<ProductNotFoundException>()
+            act.Should().ThrowExactly<ProductNotFoundException>()
                         .WithMessage("Product not found");
         }
 
@@ -31,7 +31,7 @@ namespace Example.CleanArchitecture.UnitTests.Core.Exceptions
             var act = () => { throw new ProductNotFoundException(message); };
 
             //Assert
-            act.Should().Throw<ProductNotFoundException>()
+            act.Should().ThrowExactly<ProductNotFoundException>()
                         .WithMessage(message);
         }
     }

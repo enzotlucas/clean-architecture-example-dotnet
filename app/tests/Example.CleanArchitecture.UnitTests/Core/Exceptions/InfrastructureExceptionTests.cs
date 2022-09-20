@@ -25,7 +25,7 @@
             };
 
             //Assert
-            act.Should().Throw<InfrastructureException>()
+            act.Should().ThrowExactly<InfrastructureException>()
                         .WithMessage(message)
                         .WithInnerException<Exception>();
         }

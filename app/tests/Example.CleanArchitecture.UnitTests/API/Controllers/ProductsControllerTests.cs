@@ -38,7 +38,7 @@
             var act = async () => { await sut.GetById(Guid.NewGuid()); };
 
             //Assert
-            act.Should().ThrowAsync<ProductNotFoundException>();
+            act.Should().ThrowExactlyAsync<ProductNotFoundException>();
         }
 
         [Trait("ProductsController", "API")]
@@ -114,7 +114,7 @@
             var act = async () => { await sut.Post(command); };
 
             //Assert
-            act.Should().ThrowAsync<InvalidProductException>();
+            act.Should().ThrowExactlyAsync<InvalidProductException>();
         }
 
         [Trait("ProductsController", "API")]
@@ -130,7 +130,7 @@
             var act = async () => { await sut.Post(command); };
 
             //Assert
-            act.Should().ThrowAsync<ProductExistsException>();
+            act.Should().ThrowExactlyAsync<ProductExistsException>();
         }
 
         [Trait("ProductsController", "API")]
@@ -160,7 +160,7 @@
             var act = async () => { await sut.Delete(Guid.NewGuid()); };
 
             //Assert
-            act.Should().ThrowAsync<ProductNotFoundException>();
+            act.Should().ThrowExactlyAsync<ProductNotFoundException>();
         }
 
         [Trait("ProductsController", "API")]
@@ -190,7 +190,7 @@
             var act = async () => { await sut.Put(Guid.NewGuid(), _fixture.UpdateProduct.GenerateValidCommand()); };
 
             //Assert
-            act.Should().ThrowAsync<ProductNotFoundException>();
+            act.Should().ThrowExactlyAsync<ProductNotFoundException>();
         }
 
         [Trait("ProductsController", "API")]
@@ -204,7 +204,7 @@
             var act = async () => { await sut.Put(Guid.NewGuid(), _fixture.UpdateProduct.GenerateInvalidCommand()); };
 
             //Assert
-            act.Should().ThrowAsync<ProductNotFoundException>();
+            act.Should().ThrowExactlyAsync<ProductNotFoundException>();
         }
     }
 }

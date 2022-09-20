@@ -10,7 +10,7 @@
             var act = () => { throw new InvalidNameException(); };
 
             //Assert
-            act.Should().Throw<InvalidNameException>()
+            act.Should().ThrowExactly<InvalidNameException>()
                         .WithMessage("Invalid name");
         }
 
@@ -25,7 +25,7 @@
             var act = () => { throw new InvalidNameException(message); };
 
             //Assert
-            act.Should().Throw<InvalidNameException>()
+            act.Should().ThrowExactly<InvalidNameException>()
                         .WithMessage(message);
         }
     }
