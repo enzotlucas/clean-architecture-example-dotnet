@@ -7,5 +7,6 @@
         Task<Product> GetByIdAsync(Guid guid);
         Task<IEnumerable<Product>> GetAllAsync(int page, int rows);
         Task DeleteAsync(Product product);
+        Task UpdateAsync(Product product);
     }
 }

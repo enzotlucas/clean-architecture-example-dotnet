@@ -33,6 +33,9 @@
 		<Using Include="Example.CleanArchitecture.Infrastructure.Persistence.Repositories" />
 		<Using Include="Example.CleanArchitecture.Application.Commands.CreateProduct" />
 		<Using Include="Example.CleanArchitecture.Application.Queries.GetProductById" />
+		<Using Include="Example.CleanArchitecture.Application.Commands.DeleteProduct" />
+		<Using Include="Example.CleanArchitecture.Application.Commands.UpdateProduct" />
+		<Using Include="Example.CleanArchitecture.Application.Queries.GetProducts" />
 		<Using Include="Example.CleanArchitecture.API.Configuration.Middlewares" />
 		<Using Include="Example.CleanArchitecture.Infrastructure.Persistence" />
 		<Using Include="Example.CleanArchitecture.Core.DomainObjects" />

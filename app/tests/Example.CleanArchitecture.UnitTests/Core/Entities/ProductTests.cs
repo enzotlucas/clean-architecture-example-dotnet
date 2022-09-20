@@ -60,10 +60,10 @@
             };
 
             //Assert
-            firstAct.Should().Throw<InvalidProductException>()
+            firstAct.Should().ThrowExactly<InvalidProductException>()
                 .WithMessage("Invalid product");
 
-            secondtAct.Should().Throw<InvalidProductException>()
+            secondtAct.Should().ThrowExactly<InvalidProductException>()
                 .WithMessage("Invalid product");
         }
 
@@ -91,10 +91,10 @@
             };
 
             //Assert
-            firstAct.Should().Throw<InvalidProductException>()
+            firstAct.Should().ThrowExactly<InvalidProductException>()
                 .WithMessage("Invalid product");
 
-            secondtAct.Should().Throw<InvalidProductException>()
+            secondtAct.Should().ThrowExactly<InvalidProductException>()
                 .WithMessage("Invalid product");
         }
 
@@ -117,7 +117,7 @@
             };
 
             //Assert
-            act.Should().Throw<InvalidProductException>()
+            act.Should().ThrowExactly<InvalidProductException>()
                 .WithMessage("Invalid product");
         }
 
@@ -140,8 +140,8 @@
             };
 
             //Assert
-            act.Should().Throw<InvalidProductException>()
-                .WithMessage("Invalid product");
+            act.Should().ThrowExactly<InvalidProductException>()
+                        .WithMessage("Invalid product");
         }
 
         [Trait("Product", "Core")]
@@ -155,13 +155,15 @@
             var price = (decimal)new Random().Next(200, 250);
             var cost = (decimal)new Random().Next(0, 9);
             var enabled = false;
+            var category = Category.DRINK;
 
             //Act
             product.Update(name: name,
                            quantity: quantity,
                            price: price,
                            cost: cost,
-                           enabled: enabled);
+                           enabled: enabled,
+                           category: category);
 
             //Assert
             product.Name.Should().Be(name);
@@ -183,13 +185,15 @@
             var price = product.Price;
             var cost = product.Cost;
             var enabled = product.Enabled;
+            var category = product.Category;
 
             //Act
             product.Update(name: name,
-                           quantity: null,
-                           price: null,
-                           cost: null,
-                           enabled: null);
+                           quantity: quantity,
+                           price: price,
+                           cost: cost,
+                           enabled: enabled,
+                           category: category);
 
             //Assert
             product.Name.Should().Be(name);
@@ -211,13 +215,15 @@
             var price = product.Price;
             var cost = product.Cost;
             var enabled = product.Enabled;
+            var category = product.Category;
 
             //Act
-            product.Update(name: null,
+            product.Update(name: name,
                            quantity: quantity,
-                           price: null,
-                           cost: null,
-                           enabled: null);
+                           price: price,
+                           cost: cost,
+                           enabled: enabled,
+                           category: category);
 
             //Assert
             product.Name.Should().Be(name);
@@ -239,13 +245,15 @@
             var price = (decimal)new Random().Next(200, 250);
             var cost = product.Cost;
             var enabled = product.Enabled;
+            var category = product.Category;
 
             //Act
-            product.Update(name: null,
-                           quantity: null,
+            product.Update(name: name,
+                           quantity: quantity,
                            price: price,
-                           cost: null,
-                           enabled: null);
+                           cost: cost,
+                           enabled: enabled,
+                           category: category);
 
             //Assert
             product.Name.Should().Be(name);
@@ -267,13 +275,15 @@
             var price = product.Price;
             var cost = (decimal)new Random().Next(0, 9);
             var enabled = product.Enabled;
+            var category = product.Category;
 
             //Act
-            product.Update(name: null,
-                           quantity: null,
-                           price: null,
+            product.Update(name: name,
+                           quantity: quantity,
+                           price: price,
                            cost: cost,
-                           enabled: null);
+                           enabled: enabled,
+                           category: category);
 
             //Assert
             product.Name.Should().Be(name);
@@ -295,13 +305,45 @@
             var price = product.Price;
             var cost = product.Cost;
             var enabled = false;
+            var category = product.Category;
 
             //Act
-            product.Update(name: null,
-                           quantity: null,
-                           price: null,
-                           cost: null,
-                           enabled: enabled);
+            product.Update(name: name,
+                           quantity: quantity,
+                           price: price,
+                           cost: cost,
+                           enabled: enabled,
+                           category: category);
+
+            //Assert
+            product.Name.Should().Be(name);
+            product.Quantity.Should().Be(quantity);
+            product.Price.Should().Be(price);
+            product.Cost.Should().Be(cost);
+            product.Enabled.Should().Be(enabled);
+            product.IsValid.Should().Be(true);
+        }
+
+        [Trait("Product", "Core")]
+        [Fact(DisplayName = "Update a product with valid category")]
+        public void Update_ValidCategory_ShouldUpdateCategorySucessfully()
+        {
+            //Arrange
+            var product = _fixture.Product.GenerateValid();
+            var name = product.Name;
+            var quantity = product.Quantity;
+            var price = product.Price;
+            var cost = product.Cost;
+            var enabled = product.Enabled;
+            var category = Category.DRINK;
+
+            //Act
+            product.Update(name: name,
+                           quantity: quantity,
+                           price: price,
+                           cost: cost,
+                           enabled: enabled,
+                           category: category);
 
             //Assert
             product.Name.Should().Be(name);
@@ -319,17 +361,14 @@
             //Arrange
             var product = _fixture.Product.GenerateValid();
             var name = string.Empty;
-            var quantity = product.Quantity;
-            var cost = product.Cost;
-            var price = product.Price;
-            var enabled = product.Enabled;
 
             //Act
             var act = () => product.Update(name: name,
                                            quantity: null,
                                            price: null,
                                            cost: null,
-                                           enabled: null);
+                                           enabled: null,
+                                           category: null);
 
             //Assert
             act.Should().Throw<InvalidNameException>()
@@ -342,21 +381,18 @@
         {
             //Arrange
             var product = _fixture.Product.GenerateValid();
-            var name = product.Name;
             var quantity = -1;
-            var cost = product.Cost;
-            var price = product.Price;
-            var enabled = product.Enabled;
 
             //Act
             var act = () => product.Update(name: null,
-                                              quantity: quantity,
-                                              price: null,
-                                              cost: null,
-                                              enabled: null);
+                                           quantity: quantity,
+                                           price: null,
+                                           cost: null,
+                                           enabled: null,
+                                           category: null);
 
             //Assert
-            act.Should().Throw<InvalidQuantityException>()
+            act.Should().ThrowExactly<InvalidQuantityException>()
                 .WithMessage("Invalid quantity");
         }
 
@@ -366,31 +402,30 @@
         {
             //Arrange
             var product = _fixture.Product.GenerateValid();
-            var name = product.Name;
-            var quantity = product.Quantity;
-            var cost = product.Cost;
-            var firstPrice = cost - new Random().Next(1, 9);
+            var firstPrice = product.Cost - new Random().Next(1, 9);
             var secondPrice = -1;
-            var enabled = product.Enabled;
+
 
             //Act
             var firstAct = () => product.Update(name: null,
                                                   quantity: null,
                                                   price: firstPrice,
                                                   cost: null,
-                                                  enabled: null);
+                                                  enabled: null,
+                                                  category: null);
 
             var secondAct = () => product.Update(name: null,
                                                   quantity: null,
                                                   price: secondPrice,
                                                   cost: null,
-                                                  enabled: null);
+                                                  enabled: null, 
+                                                  category: null);
 
             //Assert
-            firstAct.Should().Throw<InvalidPriceException>()
+            firstAct.Should().ThrowExactly<InvalidPriceException>()
                 .WithMessage("Invalid price");
 
-            secondAct.Should().Throw<InvalidPriceException>()
+            secondAct.Should().ThrowExactly<InvalidPriceException>()
                 .WithMessage("Invalid price");
         }
 
@@ -400,31 +435,29 @@
         {
             //Arrange
             var product = _fixture.Product.GenerateValid();
-            var name = product.Name;
-            var quantity = product.Quantity;
-            var price = product.Price;
-            var firstCost = price + new Random().Next(0, 9);
+            var firstCost = product.Price + new Random().Next(0, 9);
             var secondCost = -1;
-            var enabled = product.Enabled;
 
             //Act
             var firstAct = () => product.Update(name: null,
                                                   quantity: null,
                                                   price: null,
                                                   cost: firstCost,
-                                                  enabled: null);
+                                                  enabled: null,
+                                                  category: null);
 
             var secondAct = () => product.Update(name: null,
                                                   quantity: null,
                                                   price: null,
                                                   cost: secondCost,
-                                                  enabled: null);
+                                                  enabled: null, 
+                                                  category: null);
 
             //Assert
-            firstAct.Should().Throw<InvalidCostException>()
+            firstAct.Should().ThrowExactly<InvalidCostException>()
                 .WithMessage("Invalid cost");
 
-            secondAct.Should().Throw<InvalidCostException>()
+            secondAct.Should().ThrowExactly<InvalidCostException>()
                 .WithMessage("Invalid cost");
         }
 
@@ -483,7 +516,7 @@
             var act = () => product.AddStock(0);
 
             //Assert
-            act.Should().Throw<InvalidQuantityException>()
+            act.Should().ThrowExactly<InvalidQuantityException>()
                         .WithMessage("Invalid quantity");
         }
 
@@ -517,10 +550,10 @@
             var secondAct = () => product.WithdrawFromStock(0);
 
             //Assert
-            firstAct.Should().Throw<InvalidQuantityException>()
+            firstAct.Should().ThrowExactly<InvalidQuantityException>()
                         .WithMessage("Invalid quantity");
 
-            secondAct.Should().Throw<InvalidQuantityException>()
+            secondAct.Should().ThrowExactly<InvalidQuantityException>()
                         .WithMessage("Invalid quantity");
         }
 

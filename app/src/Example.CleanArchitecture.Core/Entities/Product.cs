@@ -75,7 +75,8 @@
                            int? quantity,
                            decimal? price,
                            decimal? cost,
-                           bool? enabled)
+                           bool? enabled,
+                           Category? category)
         {
             UpdateName(name);
 
@@ -86,6 +87,8 @@
             UpdateCost(cost);
 
             UpdateEnable(enabled);
+
+            UpdateCategory(category);
 
             UpdatedAt = DateTime.Now;
         }
@@ -143,6 +146,14 @@
                 Enable();
             else
                 Disable();
+        }
+
+        private void UpdateCategory(Category? category)
+        {
+            if (category is null || category == Category)
+                return;
+
+            Category = category.Value;
         }
 
         public override string ToString()

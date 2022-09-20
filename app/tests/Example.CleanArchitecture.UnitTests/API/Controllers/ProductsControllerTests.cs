@@ -14,10 +14,7 @@
             //Arrange
             var productViewModel = _fixture.ProductViewModel.GenerateValid();
 
-            var mediator = Substitute.For<IMediator>();
-            mediator.Send(Arg.Any<GetProductByIdQuery>()).Returns(Task.FromResult(productViewModel));
-
-            var sut = new ProductsController(mediator);
+            var sut = _fixture.ProductsController.GenerateValid(productViewModel);
 
             //Act
             var response = await sut.GetById(productViewModel.Id) as ObjectResult;
@@ -35,10 +32,7 @@
         public void GetById_UnexistingProduct_ShouldThrow()
         {
             //Arrange
-            var mediator = Substitute.For<IMediator>();
-            mediator.Send(Arg.Any<GetProductByIdQuery>()).ThrowsAsync(new ProductNotFoundException());
-
-            var sut = new ProductsController(mediator);
+            var sut = _fixture.ProductsController.GeneratInvalid(false);
 
             //Act
             var act = async () => { await sut.GetById(Guid.NewGuid()); };
@@ -54,10 +48,7 @@
             //Arrange
             var productViewModel = _fixture.ProductViewModel.GenerateValidCollection(5);
 
-            var mediator = Substitute.For<IMediator>();
-            mediator.Send(Arg.Any<GetProductsQuery>()).Returns(Task.FromResult(productViewModel));
-
-            var sut = new ProductsController(mediator);
+            var sut = _fixture.ProductsController.GenerateValid(productViewModel);
 
             //Act
             var response = await sut.Get(page: 1, pageCount: 10) as ObjectResult;
@@ -77,10 +68,7 @@
             //Arrange
             var productViewModel = new List<ProductViewModel>();
 
-            var mediator = Substitute.For<IMediator>();
-            mediator.Send(Arg.Any<GetProductsQuery>()).Returns(productViewModel);
-
-            var sut = new ProductsController(mediator);
+            var sut = _fixture.ProductsController.GenerateValid(productViewModel);
 
             //Act
             var response = await sut.Get(page: 1, pageCount: 10) as ObjectResult;
@@ -101,10 +89,7 @@
             var command = _fixture.CreateProduct.GenerateValidCommand();
             var productViewModel = _fixture.ProductViewModel.GenerateValid();
 
-            var mediator = Substitute.For<IMediator>();
-            mediator.Send(Arg.Any<CreateProductCommand>()).Returns(Task.FromResult(productViewModel));
-
-            var sut = new ProductsController(mediator);
+            var sut = _fixture.ProductsController.GenerateValid(productViewModel);
 
             //Act
             var response = await sut.Post(command) as ObjectResult;
@@ -123,10 +108,7 @@
             //Arrange
             var command = _fixture.CreateProduct.GenerateInvalidCommand();
 
-            var mediator = Substitute.For<IMediator>();
-            mediator.Send(Arg.Any<CreateProductCommand>()).ThrowsAsync(new InvalidProductException());
-
-            var sut = new ProductsController(mediator);
+            var sut = _fixture.ProductsController.GeneratInvalid(true);
 
             //Act
             var act = async () => { await sut.Post(command); };
@@ -142,10 +124,7 @@
             //Arrange
             var command = _fixture.CreateProduct.GenerateValidCommand();
 
-            var mediator = Substitute.For<IMediator>();
-            mediator.Send(Arg.Any<CreateProductCommand>()).ThrowsAsync(new ProductExistsException());
-
-            var sut = new ProductsController(mediator);
+            var sut = _fixture.ProductsController.GeneratInvalid(false);
 
             //Act
             var act = async () => { await sut.Post(command); };
@@ -156,12 +135,10 @@
 
         [Trait("ProductsController", "API")]
         [Fact(DisplayName = "Try delete a existing product, should return product view model")]
-        public async Task Delete_ExistingProduct_ShouldReturnProductViewModel()
+        public async Task Delete_ExistingProduct_ShouldReturnNoContent()
         {
             //Arrange
-            var mediator = Substitute.For<IMediator>();
-
-            var sut = new ProductsController(mediator);
+            var sut = _fixture.ProductsController.GenerateValid();
 
             //Act
             var response = await sut.Delete(Guid.NewGuid()) as NoContentResult;
@@ -177,13 +154,54 @@
         public void Delete_UnexistingProduct_ShouldThrow()
         {
             //Arrange
-            var mediator = Substitute.For<IMediator>();
-            mediator.Send(Arg.Any<DeleteProductCommand>()).ThrowsAsync(new ProductNotFoundException());
-
-            var sut = new ProductsController(mediator);
+            var sut = _fixture.ProductsController.GeneratInvalid(false);
 
             //Act
             var act = async () => { await sut.Delete(Guid.NewGuid()); };
+
+            //Assert
+            act.Should().ThrowAsync<ProductNotFoundException>();
+        }
+
+        [Trait("ProductsController", "API")]
+        [Fact(DisplayName = "Try update a existing product with valid informations, should return product view model")]
+        public async Task Put_ExistingProduct_ShouldReturnNoContent()
+        {
+            //Arrange
+            var sut = _fixture.ProductsController.GenerateValid();
+
+            //Act
+            var response = await sut.Put(Guid.NewGuid(), _fixture.UpdateProduct.GenerateValidCommand()) as NoContentResult;
+
+            //Assert
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(StatusCodes.Status204NoContent);
+            response.Should().BeAssignableTo<NoContentResult>();
+        }
+
+        [Trait("ProductsController", "API")]
+        [Fact(DisplayName = "Try update a unexisting product, should throw")]
+        public void Put_UnexistingProduct_ShouldThrow()
+        {
+            //Arrange
+            var sut = _fixture.ProductsController.GeneratInvalid(false);
+
+            //Act
+            var act = async () => { await sut.Put(Guid.NewGuid(), _fixture.UpdateProduct.GenerateValidCommand()); };
+
+            //Assert
+            act.Should().ThrowAsync<ProductNotFoundException>();
+        }
+
+        [Trait("ProductsController", "API")]
+        [Fact(DisplayName = "Try update a existing product with invalid informations, should throw")]
+        public void Put_ExistingProductInvalidInformation_ShouldThrow()
+        {
+            //Arrange
+            var sut = _fixture.ProductsController.GeneratInvalid(true);
+
+            //Act
+            var act = async () => { await sut.Put(Guid.NewGuid(), _fixture.UpdateProduct.GenerateInvalidCommand()); };
 
             //Assert
             act.Should().ThrowAsync<ProductNotFoundException>();

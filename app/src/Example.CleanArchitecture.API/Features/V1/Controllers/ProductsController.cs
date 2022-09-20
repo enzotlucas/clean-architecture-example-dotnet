@@ -1,7 +1,4 @@
-﻿using Example.CleanArchitecture.Application.Commands.DeleteProduct;
-using Example.CleanArchitecture.Application.Queries.GetProducts;
-
-namespace Example.CleanArchitecture.API.Controllers
+﻿namespace Example.CleanArchitecture.API.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
@@ -47,6 +44,19 @@ namespace Example.CleanArchitecture.API.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             await _mediator.Send(new DeleteProductCommand(id));
+
+            return NoContent();
+        }
+
+        [HttpPut("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Put(Guid id, UpdateProductCommand command)
+        {
+            command.Id = id;
+
+            await _mediator.Send(command);
 
             return NoContent();
         }

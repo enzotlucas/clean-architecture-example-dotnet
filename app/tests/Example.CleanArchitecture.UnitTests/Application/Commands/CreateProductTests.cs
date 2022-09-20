@@ -67,7 +67,7 @@
             var act = async () => { await sut.Handle(request, CancellationToken.None); };
 
             //Assert
-            act.Should().ThrowAsync<InvalidProductException>();
+            act.Should().ThrowExactlyAsync<InvalidProductException>();
         }
 
         [Trait("CreateProduct", "Application")]
@@ -85,7 +85,7 @@
             var act = async () => { await sut.Handle(request, CancellationToken.None); };
 
             //Assert
-            act.Should().ThrowAsync<ProductExistsException>();
+            act.Should().ThrowExactlyAsync<ProductExistsException>();
         }
 
         [Trait("CreateProduct", "Application")]
@@ -103,7 +103,7 @@
             var act = async () => { await sut.Handle(request, CancellationToken.None); };
 
             //Assert
-            act.Should().ThrowAsync<InfrastructureException>();
+            act.Should().ThrowExactlyAsync<InfrastructureException>();
         }
     }
 }

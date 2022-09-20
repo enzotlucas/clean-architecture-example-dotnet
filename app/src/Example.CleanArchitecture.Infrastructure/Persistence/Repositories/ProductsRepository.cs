@@ -50,5 +50,8 @@ namespace Example.CleanArchitecture.Infrastructure.Persistence.Repositories
 
         public async Task DeleteAsync(Product product) => 
             await Task.Run(() => _context.Products.Remove(product));
+
+        public async Task UpdateAsync(Product product) => 
+            await Task.Run(() => _context.Products.Update(product));
     }
 }

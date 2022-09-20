@@ -8,6 +8,7 @@ namespace Example.CleanArchitecture.UnitTests.Fixtures.Application
     public class ApplicationFixture : IDisposable
     {
         public CreateProductFixture CreateProduct { get; private set; }
+        public UpdateProductFixture UpdateProduct { get; private set; }
         public GetProductByIdFixture GetProductById { get; private set; }
         public GetProductsFixture GetProducts { get; private set; }
 
@@ -17,6 +18,7 @@ namespace Example.CleanArchitecture.UnitTests.Fixtures.Application
         public ApplicationFixture()
         {
             CreateProduct = new CreateProductFixture();
+            UpdateProduct = new UpdateProductFixture();
             GetProductById = new GetProductByIdFixture();
             GetProducts = new GetProductsFixture();
             Product = new ProductFixture();
