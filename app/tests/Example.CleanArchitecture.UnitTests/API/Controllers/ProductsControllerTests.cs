@@ -23,7 +23,7 @@
             var response = await sut.GetById(productViewModel.Id) as ObjectResult;
 
             //Assert
-            response.Should().NotBe(null);
+            response.Should().NotBeNull();
             response.StatusCode.Should().Be(StatusCodes.Status200OK);
             response.Should().BeAssignableTo<OkObjectResult>();
             response.Value.Should().BeAssignableTo<ProductViewModel>();
@@ -110,7 +110,7 @@
             var response = await sut.Post(command) as ObjectResult;
 
             //Assert
-            response.Should().NotBe(null);
+            response.Should().NotBeNull();
             response.StatusCode.Should().Be(StatusCodes.Status201Created);
             response.Value.Should().BeAssignableTo<ProductViewModel>();
             response.Value.Should().Be(productViewModel);
@@ -152,6 +152,41 @@
 
             //Assert
             act.Should().ThrowAsync<ProductExistsException>();
+        }
+
+        [Trait("ProductsController", "API")]
+        [Fact(DisplayName = "Try delete a existing product, should return product view model")]
+        public async Task Delete_ExistingProduct_ShouldReturnProductViewModel()
+        {
+            //Arrange
+            var mediator = Substitute.For<IMediator>();
+
+            var sut = new ProductsController(mediator);
+
+            //Act
+            var response = await sut.Delete(Guid.NewGuid()) as NoContentResult;
+
+            //Assert
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(StatusCodes.Status204NoContent);
+            response.Should().BeAssignableTo<NoContentResult>();
+        }
+
+        [Trait("ProductsController", "API")]
+        [Fact(DisplayName = "Try delete a unexisting product, should throw")]
+        public void Delete_UnexistingProduct_ShouldThrow()
+        {
+            //Arrange
+            var mediator = Substitute.For<IMediator>();
+            mediator.Send(Arg.Any<DeleteProductCommand>()).ThrowsAsync(new ProductNotFoundException());
+
+            var sut = new ProductsController(mediator);
+
+            //Act
+            var act = async () => { await sut.Delete(Guid.NewGuid()); };
+
+            //Assert
+            act.Should().ThrowAsync<ProductNotFoundException>();
         }
     }
 }

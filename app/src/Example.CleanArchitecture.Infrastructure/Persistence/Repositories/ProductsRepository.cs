@@ -32,7 +32,7 @@ namespace Example.CleanArchitecture.Infrastructure.Persistence.Repositories
         {
             var query =
                 @"SELECT *
-                  FROM PRODUCTS
+                  FROM Product
                   ORDER BY NAME
                   OFFSET (@page -1 ) * @rows ROWS FETCH NEXT @rows ROWS ONLY";
 
@@ -47,5 +47,8 @@ namespace Example.CleanArchitecture.Infrastructure.Persistence.Repositories
                }
             );
         }
+
+        public async Task DeleteAsync(Product product) => 
+            await Task.Run(() => _context.Products.Remove(product));
     }
 }

@@ -1,4 +1,5 @@
-﻿using Example.CleanArchitecture.Application.Queries.GetProducts;
+﻿using Example.CleanArchitecture.Application.Commands.DeleteProduct;
+using Example.CleanArchitecture.Application.Queries.GetProducts;
 
 namespace Example.CleanArchitecture.API.Controllers
 {
@@ -38,6 +39,16 @@ namespace Example.CleanArchitecture.API.Controllers
             var response = await _mediator.Send(product);
 
             return CreatedAtAction(nameof(Post), response);
+        }
+
+        [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            await _mediator.Send(new DeleteProductCommand(id));
+
+            return NoContent();
         }
     }
 }

@@ -30,13 +30,64 @@
             var request = new DeleteProductCommand(product.Id);
 
             var uow = Substitute.For<IUnitOfWork>();
-            var mapper = Substitute.For<IMapper>();
+            uow.Products.GetByIdAsync(Arg.Any<Guid>()).Returns(Task.FromResult(product));
+            uow.SaveChangesAsync().Returns(Task.FromResult(true));
 
-            var sut = new DeleteProductCommandHandler(uow, mapper);
+            var logger = Substitute.For<ILogger<DeleteProductCommandHandler>>();
+
+            var sut = new DeleteProductCommandHandler(uow, logger);
 
             //Act
+            var act = async () => await sut.Handle(request, CancellationToken.None);
 
             //Assert
+            await act.Should().NotThrowAsync();
+        }
+
+        [Trait("DeleteProduct", "Application")]
+        [Fact(DisplayName = "Try delete a unexisting product, should throw.")]
+        public async Task Handle_UnexistingProduct_ShouldThrow()
+        {
+            //Arrange
+            var product = _fixture.Product.GenerateInvalid();
+            var request = new DeleteProductCommand(Guid.NewGuid());
+
+            var uow = Substitute.For<IUnitOfWork>();
+            uow.Products.GetByIdAsync(Arg.Any<Guid>()).Returns(Task.FromResult(product));
+            uow.SaveChangesAsync().Returns(Task.FromResult(true));
+
+            var logger = Substitute.For<ILogger<DeleteProductCommandHandler>>();
+
+            var sut = new DeleteProductCommandHandler(uow, logger);
+
+            //Act
+            var act = async () => await sut.Handle(request, CancellationToken.None);
+
+            //Assert
+            await act.Should().ThrowAsync<ProductNotFoundException>();
+        }
+
+        [Trait("DeleteProduct", "Application")]
+        [Fact(DisplayName = "Try delete a existing product but service unavailable, should throw.")]
+        public async Task Handle_ExistingProductButServiceUnavailable_ShouldThrow()
+        {
+            //Arrange
+            var product = _fixture.Product.GenerateValid();
+            var request = new DeleteProductCommand(product.Id);
+
+            var uow = Substitute.For<IUnitOfWork>();
+            uow.Products.GetByIdAsync(Arg.Any<Guid>()).Returns(Task.FromResult(product));
+            uow.SaveChangesAsync().Returns(Task.FromResult(false));
+
+            var logger = Substitute.For<ILogger<DeleteProductCommandHandler>>();
+
+            var sut = new DeleteProductCommandHandler(uow, logger);
+
+            //Act
+            var act = async () => await sut.Handle(request, CancellationToken.None);
+
+            //Assert
+            await act.Should().ThrowAsync<InfrastructureException>();
         }
     }
 }
