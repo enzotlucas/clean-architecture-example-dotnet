@@ -1,4 +1,6 @@
-﻿namespace Example.CleanArchitecture.UnitTests.Fixtures.Application
+﻿using Example.CleanArchitecture.UnitTests.Fixtures.Application.Queries;
+
+namespace Example.CleanArchitecture.UnitTests.Fixtures.Application
 {
     [CollectionDefinition(nameof(ApplicationFixtureCollection))]
     public class ApplicationFixtureCollection : ICollectionFixture<ApplicationFixture> { }
@@ -7,6 +9,7 @@
     {
         public CreateProductFixture CreateProduct { get; private set; }
         public GetProductByIdFixture GetProductById { get; private set; }
+        public GetProductsFixture GetProducts { get; private set; }
 
         public ProductFixture Product { get; private set; }
         public ProductViewModelFixture ProductViewModel { get; private set; }
@@ -15,6 +18,7 @@
         {
             CreateProduct = new CreateProductFixture();
             GetProductById = new GetProductByIdFixture();
+            GetProducts = new GetProductsFixture();
             Product = new ProductFixture();
             ProductViewModel = new ProductViewModelFixture();
         }

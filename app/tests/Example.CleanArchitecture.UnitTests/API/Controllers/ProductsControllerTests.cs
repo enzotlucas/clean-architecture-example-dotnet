@@ -1,9 +1,4 @@
-﻿using Example.CleanArchitecture.UnitTests.Fixtures.API;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using NSubstitute.ExceptionExtensions;
-
-namespace Example.CleanArchitecture.UnitTests.API.Controllers
+﻿namespace Example.CleanArchitecture.UnitTests.API.Controllers
 {
     [Collection(nameof(ApiFixtureCollection))]
     public class ProductsControllerTests
@@ -50,6 +45,52 @@ namespace Example.CleanArchitecture.UnitTests.API.Controllers
 
             //Assert
             act.Should().ThrowAsync<ProductNotFoundException>();
+        }
+
+        [Trait("ProductsController", "API")]
+        [Fact(DisplayName = "Try get a existing product list, should return product view model list")]
+        public async Task Get_ExistingProduct_ShouldReturnProductViewModelColection()
+        {
+            //Arrange
+            var productViewModel = _fixture.ProductViewModel.GenerateValidCollection(5);
+
+            var mediator = Substitute.For<IMediator>();
+            mediator.Send(Arg.Any<GetProductsQuery>()).Returns(Task.FromResult(productViewModel));
+
+            var sut = new ProductsController(mediator);
+
+            //Act
+            var response = await sut.Get(page: 1, pageCount: 10) as ObjectResult;
+
+            //Assert
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(StatusCodes.Status200OK);
+            response.Should().BeAssignableTo<OkObjectResult>();
+            response.Value.Should().BeAssignableTo<IEnumerable<ProductViewModel>>();
+            response.Value.Should().Be(productViewModel);
+        }
+
+        [Trait("ProductsController", "API")]
+        [Fact(DisplayName = "Try get a unexisting product, should return empty list")]
+        public async Task Get_UnexistingProduct_ShouldReturnEmptyCollection()
+        {
+            //Arrange
+            var productViewModel = new List<ProductViewModel>();
+
+            var mediator = Substitute.For<IMediator>();
+            mediator.Send(Arg.Any<GetProductsQuery>()).Returns(productViewModel);
+
+            var sut = new ProductsController(mediator);
+
+            //Act
+            var response = await sut.Get(page: 1, pageCount: 10) as ObjectResult;
+
+            //Assert
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(StatusCodes.Status200OK);
+            response.Should().BeAssignableTo<OkObjectResult>();
+            response.Value.Should().BeAssignableTo<IEnumerable<ProductViewModel>>();
+            response.Value.Should().Be(productViewModel);
         }
 
         [Trait("ProductsController", "API")]

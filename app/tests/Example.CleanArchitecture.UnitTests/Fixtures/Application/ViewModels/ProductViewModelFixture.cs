@@ -28,5 +28,15 @@
                                          .RuleFor(p => p.Category, (Category)_numberGenerator.Next(0, 2))
                                          .RuleFor(p => p.Enabled, true)
                                          .Generate(quantity);
+
+        public IEnumerable<ProductViewModel> GenerateValidCollectionFromEntity(IEnumerable<Product> products)
+        {
+            var response = new List<ProductViewModel>();
+
+            foreach (var product in products)
+                response.Add(GenerateValidFromEntity(product));
+
+            return response;
+        }
     }
 }

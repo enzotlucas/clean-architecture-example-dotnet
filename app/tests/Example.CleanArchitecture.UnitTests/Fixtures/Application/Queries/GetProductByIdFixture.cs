@@ -5,7 +5,7 @@
         public GetProductByIdQueryHandler GenerateValidHandler(Product product, ProductViewModel productViewModel)
         {
             var uow = Substitute.For<IUnitOfWork>();
-            uow.Products.GetById(Arg.Any<Guid>()).Returns(product);
+            uow.Products.GetByIdAsync(Arg.Any<Guid>()).Returns(product);
 
 
             var mapper = Substitute.For<IMapper>();
@@ -17,7 +17,7 @@
         public GetProductByIdQueryHandler GenerateInvalidHandler()
         {
             var uow = Substitute.For<IUnitOfWork>();
-            uow.Products.GetById(Arg.Any<Guid>()).Returns(new Product());
+            uow.Products.GetByIdAsync(Arg.Any<Guid>()).Returns(new Product());
 
             var mapper = Substitute.For<IMapper>();
 

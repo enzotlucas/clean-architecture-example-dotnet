@@ -14,7 +14,7 @@
 
         public async Task<ProductViewModel> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
         {
-            var product = await _uow.Products.GetById(request.Id);
+            var product = await _uow.Products.GetByIdAsync(request.Id);
 
             if (!product.IsValid)
                 throw new ProductNotFoundException();

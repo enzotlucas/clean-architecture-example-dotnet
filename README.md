@@ -3,6 +3,5 @@
 
 Add migrations
 ```
-Add-Migration Initial -OutputDir "Persistence/Migrations"
 Update-Database
 ```

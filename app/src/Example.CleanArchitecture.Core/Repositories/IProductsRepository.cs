@@ -4,6 +4,7 @@
     {
         Task<bool> ExistsAsync(Product product);
         Task<Product> CreateAsync(Product product);
-        Task<Product> GetById(Guid guid);
+        Task<Product> GetByIdAsync(Guid guid);
+        Task<IEnumerable<Product>> GetAllAsync(int page, int rows);
     }
 }
