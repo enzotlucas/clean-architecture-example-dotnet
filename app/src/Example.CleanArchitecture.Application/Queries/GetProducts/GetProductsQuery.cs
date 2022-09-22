@@ -2,10 +2,10 @@
 {
     public class GetProductsQuery : IRequest<IEnumerable<ProductViewModel>>
     {
-        public int Page { get; set; }
-        public int Rows { get; set; }
+        public int? Page { get; set; }
+        public int? Rows { get; set; }
 
-        public GetProductsQuery(int page, int rows)
+        public GetProductsQuery(int? page, int? rows)
         {
             Page = page;
             Rows = rows;

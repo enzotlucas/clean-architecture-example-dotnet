@@ -17,7 +17,10 @@
 
         public async Task<IEnumerable<ProductViewModel>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
         {
-            var products = await _unitOfWork.Products.GetAllAsync(request.Page, request.Rows);
+            if (request is null || request.Rows is null || request.Rows < 1 || request.Page is null || request.Page < 1)
+                throw new BusinessException("The number of page and row need to be at least one");
+
+            var products = await _unitOfWork.Products.GetAllAsync(request.Page.Value, request.Rows.Value);
 
             _logger.LogInformation("Products was queried", products);
 

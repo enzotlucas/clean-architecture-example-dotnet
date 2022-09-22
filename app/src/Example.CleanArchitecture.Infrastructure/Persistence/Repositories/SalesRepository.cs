@@ -6,9 +6,17 @@
 
         public SalesRepository(ApplicationContext context) => _context = context;
 
-        public Task DeleteSalesFromProduct(Product product)
+        public async Task DeleteSalesFromProduct(Product product)
         {
-            throw new NotImplementedException();
+            if (product is null || product.SaleItems is null || product.SaleItems.Any())
+                return;
+
+            await Task.Run(() =>
+            {
+                _context.SaleItems.RemoveRange(product.SaleItems);
+
+                _context.Sales.Remove(product);
+            });
         }
     }
 }

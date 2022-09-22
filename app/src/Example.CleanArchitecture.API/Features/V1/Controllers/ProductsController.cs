@@ -3,6 +3,7 @@
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/products")]
+    [Produces("application/json")]
     public sealed class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -21,7 +22,8 @@
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ProductViewModel>))]
-        public async Task<IActionResult> Get(int page, int pageCount)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Get(int? page, int? pageCount)
         {
             var response = await _mediator.Send(new GetProductsQuery(page, pageCount));
 

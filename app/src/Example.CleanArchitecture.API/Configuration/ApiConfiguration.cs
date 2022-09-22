@@ -1,4 +1,6 @@
-﻿namespace Example.CleanArchitecture.API.Configuration
+﻿using System.Text.Json.Serialization;
+
+namespace Example.CleanArchitecture.API.Configuration
 {
     public static class ApiConfiguration
     {
@@ -10,9 +12,15 @@
                    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
                    .AddEnvironmentVariables();
 
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerConfiguration();
+            builder.Services.AddControllers()
+                            .AddJsonOptions(x =>
+            {
+                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+            });
+
+            builder.Services.AddEndpointsApiExplorer()
+                            .AddSwaggerConfiguration();
 
             builder.Services.AddApiVersioning(options =>
             {
@@ -38,6 +46,11 @@
         public static WebApplication UseApiServices(this WebApplication app)
         {
             var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseSwaggerConfiguration(provider);
 

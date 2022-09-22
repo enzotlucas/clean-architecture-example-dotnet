@@ -24,9 +24,11 @@ namespace Example.CleanArchitecture.UnitTests.Fixtures.API.Controllers
             return new ProductsController(mediator);
         }
 
-        public ProductsController GeneratInvalid(bool invalidProduct)
+        public ProductsController GenerateInvalid(bool invalidProduct)
         {
             var mediator = Substitute.For<IMediator>();
+
+            mediator.Send(Arg.Any<GetProductsQuery>()).ThrowsAsync(new BusinessException("The number of page and row need to be at least one"));
 
             mediator.Send(Arg.Any<CreateProductCommand>()).ThrowsAsync(new ProductExistsException());
 

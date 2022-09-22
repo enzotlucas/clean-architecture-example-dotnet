@@ -1,4 +1,6 @@
-﻿namespace Example.CleanArchitecture.UnitTests.API.Controllers
+﻿using Example.CleanArchitecture.Application.ViewModels;
+
+namespace Example.CleanArchitecture.UnitTests.API.Controllers
 {
     [Collection(nameof(ApiFixtureCollection))]
     public class ProductsControllerTests
@@ -32,7 +34,7 @@
         public void GetById_UnexistingProduct_ShouldThrow()
         {
             //Arrange
-            var sut = _fixture.ProductsController.GeneratInvalid(false);
+            var sut = _fixture.ProductsController.GenerateInvalid(false);
 
             //Act
             var act = async () => { await sut.GetById(Guid.NewGuid()); };
@@ -82,6 +84,39 @@
         }
 
         [Trait("ProductsController", "API")]
+        [Fact(DisplayName = "Try get a existing product but with invalid page or roll, should throw")]
+        public async Task Handle_ExistingProductsInvalidPagesAndRows_ShouldThrow()
+        {
+            //Arrange
+            var firstRequest = new GetProductsQuery(page: null, rows: 10);
+            var secondRequest = new GetProductsQuery(page: 1, rows: null);
+            var thirdRequest = new GetProductsQuery(page: null, rows: null);
+            var fourthRequest = new GetProductsQuery(page: 0, rows: 10);
+            var fiftRequest = new GetProductsQuery(page: 1, rows: 0);
+
+            var sut = _fixture.ProductsController.GenerateInvalid(false);
+
+            //Act
+            var firstAct = () => sut.Get(firstRequest.Page, firstRequest.Rows);
+            var secondAct = () => sut.Get(secondRequest.Page, secondRequest.Rows);
+            var thirdAct = () => sut.Get(thirdRequest.Page, thirdRequest.Rows);
+            var fourthAct = () => sut.Get(fourthRequest.Page, fourthRequest.Rows);
+            var fiftAct = () => sut.Get(fiftRequest.Page, fiftRequest.Rows);
+
+            //Assert
+            await firstAct.Should().ThrowExactlyAsync<BusinessException>()
+                                   .WithMessage("The number of page and row need to be at least one");
+            await secondAct.Should().ThrowExactlyAsync<BusinessException>()
+                                   .WithMessage("The number of page and row need to be at least one");
+            await thirdAct.Should().ThrowExactlyAsync<BusinessException>()
+                                   .WithMessage("The number of page and row need to be at least one");
+            await fourthAct.Should().ThrowExactlyAsync<BusinessException>()
+                                   .WithMessage("The number of page and row need to be at least one");
+            await fiftAct.Should().ThrowExactlyAsync<BusinessException>()
+                                   .WithMessage("The number of page and row need to be at least one");
+        }
+
+        [Trait("ProductsController", "API")]
         [Fact(DisplayName = "Try create a product with valid informations, should return created")]
         public async Task Post_ValidInformations_ShouldReturnCreated()
         {
@@ -108,7 +143,7 @@
             //Arrange
             var command = _fixture.CreateProduct.GenerateInvalidCommand();
 
-            var sut = _fixture.ProductsController.GeneratInvalid(true);
+            var sut = _fixture.ProductsController.GenerateInvalid(true);
 
             //Act
             var act = async () => { await sut.Post(command); };
@@ -124,7 +159,7 @@
             //Arrange
             var command = _fixture.CreateProduct.GenerateValidCommand();
 
-            var sut = _fixture.ProductsController.GeneratInvalid(false);
+            var sut = _fixture.ProductsController.GenerateInvalid(false);
 
             //Act
             var act = async () => { await sut.Post(command); };
@@ -154,7 +189,7 @@
         public void Delete_UnexistingProduct_ShouldThrow()
         {
             //Arrange
-            var sut = _fixture.ProductsController.GeneratInvalid(false);
+            var sut = _fixture.ProductsController.GenerateInvalid(false);
 
             //Act
             var act = async () => { await sut.Delete(Guid.NewGuid()); };
@@ -184,7 +219,7 @@
         public void Put_UnexistingProduct_ShouldThrow()
         {
             //Arrange
-            var sut = _fixture.ProductsController.GeneratInvalid(false);
+            var sut = _fixture.ProductsController.GenerateInvalid(false);
 
             //Act
             var act = async () => { await sut.Put(Guid.NewGuid(), _fixture.UpdateProduct.GenerateValidCommand()); };
@@ -198,7 +233,7 @@
         public void Put_ExistingProductInvalidInformation_ShouldThrow()
         {
             //Arrange
-            var sut = _fixture.ProductsController.GeneratInvalid(true);
+            var sut = _fixture.ProductsController.GenerateInvalid(true);
 
             //Act
             var act = async () => { await sut.Put(Guid.NewGuid(), _fixture.UpdateProduct.GenerateInvalidCommand()); };

@@ -1,4 +1,8 @@
-﻿namespace Example.CleanArchitecture.API.Configuration
+﻿using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Any;
+using System.Runtime.Serialization;
+
+namespace Example.CleanArchitecture.API.Configuration
 {
     public static class SwaggerConfiguration
     {
@@ -7,6 +11,8 @@
             services.AddSwaggerGen(c =>
             {
                 c.OperationFilter<SwaggerDefaultValues>();
+                c.CustomSchemaIds(SchemaIdStrategy);
+                c.SchemaFilter<EnumSchemaFilter>();
             });
 
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
@@ -27,6 +33,11 @@
 
             return app;
         }
+
+        private static string SchemaIdStrategy(Type currentClass) => 
+            currentClass.Name.Replace("ViewModel", string.Empty)
+                             .Replace("Command", string.Empty);
+
     }
 
     public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
@@ -47,7 +58,7 @@
                 options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description, _configuration));
         }
 
-        static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description, 
+        static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description,
                                                    IConfiguration configuration)
         {
             var info = new OpenApiInfo()
@@ -108,6 +119,29 @@
                 }
 
                 parameter.Required |= description.IsRequired;
+            }
+        }
+    }
+
+    public class EnumSchemaFilter : ISchemaFilter
+    {
+        public void Apply(OpenApiSchema model, SchemaFilterContext context)
+        {
+            if (context.Type.IsEnum)
+            {
+                model.Enum.Clear();
+                foreach (string enumName in Enum.GetNames(context.Type))
+                {
+                    System.Reflection.MemberInfo memberInfo = context.Type.GetMember(enumName).FirstOrDefault(m => m.DeclaringType == context.Type);
+
+                    EnumMemberAttribute enumMemberAttribute = memberInfo?.GetCustomAttributes(typeof(EnumMemberAttribute), false).OfType<EnumMemberAttribute>().FirstOrDefault();
+
+                    var label = enumMemberAttribute == null || string.IsNullOrWhiteSpace(enumMemberAttribute.Value)
+                     ? enumName
+                     : enumMemberAttribute.Value;
+
+                    model.Enum.Add(new OpenApiString(label));
+                }
             }
         }
     }
