@@ -21,6 +21,7 @@ global using Example.CleanArchitecture.Application.Commands.DeleteProduct;
 global using Example.CleanArchitecture.Application.Queries.GetProductById;
 global using Example.CleanArchitecture.Application.Queries.GetProducts;
 global using Example.CleanArchitecture.Application.ViewModels;
+global using Example.CleanArchitecture.Application.Services;
 
 //Core
 global using Example.CleanArchitecture.Core.Validators;

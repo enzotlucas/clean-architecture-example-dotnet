@@ -2,6 +2,6 @@
 {
     public interface ISalesRepository : IRepository<Sale>
     {
-
+        Task DeleteSalesFromProduct(Product product);
     }
 }

@@ -29,10 +29,10 @@
             {
                 await _transaction.CommitAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 await _transaction.RollbackAsync();
-                throw;
+                throw new InfrastructureException("Error on commiting changes to database", ex);
             }
         }
 

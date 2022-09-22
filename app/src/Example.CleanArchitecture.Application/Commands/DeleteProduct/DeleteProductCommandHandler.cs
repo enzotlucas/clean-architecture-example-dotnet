@@ -3,12 +3,15 @@
     public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IProductService _service;
         private readonly ILogger<DeleteProductCommandHandler> _logger;
 
         public DeleteProductCommandHandler(IUnitOfWork unitOfWork, 
+                                           IProductService service,
                                            ILogger<DeleteProductCommandHandler> logger)
         {
             _unitOfWork = unitOfWork;
+            _service = service;
             _logger = logger;
         }
 
@@ -19,9 +22,9 @@
             if (!product.IsValid)
                 throw new ProductNotFoundException();
 
-            await _unitOfWork.Products.DeleteAsync(product);
+            var deleted = await _service.DeleteProductAndItSales(product);
 
-            if (!await _unitOfWork.SaveChangesAsync())
+            if (!deleted)
                 throw new InfrastructureException("Product was unable to delete");
 
             _logger.LogInformation("Product deleted", product);

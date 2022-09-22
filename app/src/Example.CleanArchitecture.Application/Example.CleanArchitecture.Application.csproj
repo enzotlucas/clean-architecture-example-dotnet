@@ -23,6 +23,7 @@
 		<Using Include="Example.CleanArchitecture.Core.Entities" />
 		<Using Include="Example.CleanArchitecture.Core.Exceptions" />
 		<Using Include="Example.CleanArchitecture.Application.Commands.CreateProduct" />
+		<Using Include="Example.CleanArchitecture.Application.Services" />
 		<Using Include="Example.CleanArchitecture.Core.Validators" />
 
 		<Using Include="MediatR" />

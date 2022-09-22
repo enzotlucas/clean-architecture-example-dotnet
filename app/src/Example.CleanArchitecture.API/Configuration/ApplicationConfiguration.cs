@@ -8,6 +8,8 @@
 
             builder.Services.AddAutoMapper(typeof(ProductProfile));
 
+            builder.Services.AddScoped<IProductService, ProductService>();
+
             return builder;
         }
 
