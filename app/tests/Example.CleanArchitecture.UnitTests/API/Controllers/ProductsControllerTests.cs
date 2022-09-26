@@ -121,13 +121,12 @@ namespace Example.CleanArchitecture.UnitTests.API.Controllers
         public async Task Post_ValidInformations_ShouldReturnCreated()
         {
             //Arrange
-            var command = _fixture.CreateProduct.GenerateValidCommand();
             var productViewModel = _fixture.ProductViewModel.GenerateValid();
 
             var sut = _fixture.ProductsController.GenerateValid(productViewModel);
 
             //Act
-            var response = await sut.Post(command) as ObjectResult;
+            var response = await sut.Post(productViewModel) as ObjectResult;
 
             //Assert
             response.Should().NotBeNull();
@@ -141,12 +140,12 @@ namespace Example.CleanArchitecture.UnitTests.API.Controllers
         public void Post_InvalidInformations_ShouldThrow()
         {
             //Arrange
-            var command = _fixture.CreateProduct.GenerateInvalidCommand();
+            var productViewModel = _fixture.ProductViewModel.GenerateInvalid();
 
             var sut = _fixture.ProductsController.GenerateInvalid(true);
 
             //Act
-            var act = async () => { await sut.Post(command); };
+            var act = async () => { await sut.Post(productViewModel); };
 
             //Assert
             act.Should().ThrowExactlyAsync<InvalidProductException>();
@@ -157,12 +156,12 @@ namespace Example.CleanArchitecture.UnitTests.API.Controllers
         public void Post_ExistingProduct_ShouldThrow()
         {
             //Arrange
-            var command = _fixture.CreateProduct.GenerateValidCommand();
+            var productViewModel = _fixture.ProductViewModel.GenerateValid();
 
             var sut = _fixture.ProductsController.GenerateInvalid(false);
 
             //Act
-            var act = async () => { await sut.Post(command); };
+            var act = async () => { await sut.Post(productViewModel); };
 
             //Assert
             act.Should().ThrowExactlyAsync<ProductExistsException>();
@@ -206,7 +205,7 @@ namespace Example.CleanArchitecture.UnitTests.API.Controllers
             var sut = _fixture.ProductsController.GenerateValid();
 
             //Act
-            var response = await sut.Put(Guid.NewGuid(), _fixture.UpdateProduct.GenerateValidCommand()) as NoContentResult;
+            var response = await sut.Put(Guid.NewGuid(), _fixture.ProductViewModel.GenerateValid()) as NoContentResult;
 
             //Assert
             response.Should().NotBeNull();
@@ -222,7 +221,7 @@ namespace Example.CleanArchitecture.UnitTests.API.Controllers
             var sut = _fixture.ProductsController.GenerateInvalid(false);
 
             //Act
-            var act = async () => { await sut.Put(Guid.NewGuid(), _fixture.UpdateProduct.GenerateValidCommand()); };
+            var act = async () => { await sut.Put(Guid.NewGuid(), _fixture.ProductViewModel.GenerateValid()); };
 
             //Assert
             act.Should().ThrowExactlyAsync<ProductNotFoundException>();
@@ -236,7 +235,7 @@ namespace Example.CleanArchitecture.UnitTests.API.Controllers
             var sut = _fixture.ProductsController.GenerateInvalid(true);
 
             //Act
-            var act = async () => { await sut.Put(Guid.NewGuid(), _fixture.UpdateProduct.GenerateInvalidCommand()); };
+            var act = async () => { await sut.Put(Guid.NewGuid(), _fixture.ProductViewModel.GenerateInvalid()); };
 
             //Assert
             act.Should().ThrowExactlyAsync<ProductNotFoundException>();

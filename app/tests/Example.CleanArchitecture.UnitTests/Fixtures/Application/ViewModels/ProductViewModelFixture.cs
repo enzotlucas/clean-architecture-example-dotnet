@@ -38,5 +38,47 @@
 
             return response;
         }
+
+        public ProductViewModel GenerateInvalid(InvalidProductViewModelField invalidField, ProductViewModel productViewModel)
+        {
+            switch (invalidField)
+            {
+                case InvalidProductViewModelField.NAME:
+                    productViewModel.Name = string.Empty;
+                    break;
+                case InvalidProductViewModelField.QUANTITY:
+                    productViewModel.Quantity = -1;
+                    break;
+                case InvalidProductViewModelField.PRICE_LOWER_THAN_COST:
+                    productViewModel.Price = productViewModel.Cost - 1;
+                    break;
+                case InvalidProductViewModelField.PRICE:
+                    productViewModel.Price = -1;
+                    break;
+                case InvalidProductViewModelField.COST:
+                    productViewModel.Cost = -1;
+                    break;
+                case InvalidProductViewModelField.COST_HIGHER_THAN_PRICE:
+                    productViewModel.Cost = productViewModel.Price + 1;
+                    break;
+                default:
+                    return GenerateInvalid();
+            }
+
+            return productViewModel;
+        }
+
+        public ProductViewModel GenerateInvalid() => new();
+    }
+
+    public enum InvalidProductViewModelField
+    {
+        NAME,
+        QUANTITY,
+        PRICE_LOWER_THAN_COST,
+        PRICE,
+        COST,
+        COST_HIGHER_THAN_PRICE,
+        ALL
     }
 }

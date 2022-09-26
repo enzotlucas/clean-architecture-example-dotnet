@@ -13,21 +13,10 @@
         public void Constructor_AnyInformations_ShouldCreateCommand()
         {
             //Arrange
-            var name = "Product Name";
-            var price = 5.0m;
-            var cost = 2.0m;
-            var quantity = 4;
-            var category = Category.TECH;
+            var productViewModel = _fixture.ProductViewModel.GenerateValid();
 
             //Act
-            var command = new CreateProductCommand
-            {
-                Name = name,
-                Price = price,
-                Cost = cost,
-                Quantity = quantity,
-                Category = category
-            };
+            var command = new CreateProductCommand(productViewModel);
 
             //Assert
             command.Should().NotBe(null);
@@ -39,8 +28,8 @@
         {
             //Arrange
             var product = _fixture.Product.GenerateValid();
-            var request = _fixture.CreateProduct.GenerateCommandFromEntity(product);
             var productViewModel = _fixture.ProductViewModel.GenerateValidFromEntity(product);
+            var request = _fixture.CreateProduct.GenerateFromViewModel(productViewModel);
 
             var sut = _fixture.CreateProduct.GenerateValidHandler(request, product, productViewModel);
 
@@ -57,10 +46,10 @@
         public void Handle_InvalidInformation_ShouldThrow()
         {
             var product = _fixture.Product.GenerateInvalid();
-            var request = _fixture.CreateProduct.GenerateCommandFromEntity(product);
+            var productViewModel = _fixture.ProductViewModel.GenerateValidFromEntity(product);
+            var request = _fixture.CreateProduct.GenerateFromViewModel(productViewModel);
 
-            var sut = _fixture.CreateProduct.GenerateInvalidHandler(request,
-                                                                    exists: false,
+            var sut = _fixture.CreateProduct.GenerateInvalidHandler(exists: false,
                                                                     saveChanges: true);
 
             //Act
@@ -75,10 +64,10 @@
         public void Handle_ExistingProduct_ShouldThrow()
         {
             var product = _fixture.Product.GenerateInvalid();
-            var request = _fixture.CreateProduct.GenerateCommandFromEntity(product);
+            var productViewModel = _fixture.ProductViewModel.GenerateValidFromEntity(product);
+            var request = _fixture.CreateProduct.GenerateFromViewModel(productViewModel);
 
-            var sut = _fixture.CreateProduct.GenerateInvalidHandler(request,
-                                                                    exists: true,
+            var sut = _fixture.CreateProduct.GenerateInvalidHandler(exists: true,
                                                                     saveChanges: true);
 
             //Act
@@ -93,10 +82,10 @@
         public void Handle_ValidInformationServiceUnavailable_ShouldThrow()
         {
             var product = _fixture.Product.GenerateValid();
-            var request = _fixture.CreateProduct.GenerateCommandFromEntity(product);
+            var productViewModel = _fixture.ProductViewModel.GenerateValidFromEntity(product);
+            var request = _fixture.CreateProduct.GenerateFromViewModel(productViewModel);
 
-            var sut = _fixture.CreateProduct.GenerateInvalidHandler(request,
-                                                                    exists: false,
+            var sut = _fixture.CreateProduct.GenerateInvalidHandler(exists: false,
                                                                     saveChanges: false);
 
             //Act

@@ -14,24 +14,13 @@ namespace Example.CleanArchitecture.UnitTests.Application.Commands
         public void Constuctor_AnyInformations_ShouldCreateCommand()
         {
             //Arrange
-            var name = "Product Name Custom";
-            var price = 10.0m;
-            var cost = 1.0m;
-            var quantity = 10;
-            var category = Category.DRINK;
+            var productViewModel = _fixture.ProductViewModel.GenerateValid();
 
             //Act
-            var query = new UpdateProductCommand
-            {
-                Name = name,
-                Price = price,
-                Cost = cost,
-                Quantity = quantity,
-                Category = category
-            };
+            var command = new UpdateProductCommand(productViewModel.Id, productViewModel);
 
             //Assert
-            query.Should().NotBe(null);
+            command.Should().NotBe(null);
         }
 
         [Trait("UpdateProduct", "Application")]
@@ -40,7 +29,8 @@ namespace Example.CleanArchitecture.UnitTests.Application.Commands
         {
             //Arrange
             var product = _fixture.Product.GenerateValid();
-            var request = _fixture.UpdateProduct.GenerateValidCommand();
+            var productViewModel = _fixture.ProductViewModel.GenerateValid();
+            var request = _fixture.UpdateProduct.GenerateCommandFromViewModel(productViewModel);
 
             var sut = _fixture.UpdateProduct.GenerateValidHandler(product);
 
@@ -57,12 +47,15 @@ namespace Example.CleanArchitecture.UnitTests.Application.Commands
         {
             //Arrange
             var product = _fixture.Product.GenerateValid();
-            var invalidNameRequest = new UpdateProductCommand { Name = string.Empty };
-            var invalidQuantityRequest = new UpdateProductCommand { Quantity = -1 };
-            var firstInvalidPriceRequest = new UpdateProductCommand { Price = -1 };
-            var secondInvalidPriceRequest = new UpdateProductCommand { Price = product.Cost - 1 };
-            var firstInvalidCostRequest = new UpdateProductCommand { Cost = -1 };
-            var secondInvalidCostRequest = new UpdateProductCommand { Cost = product.Price + 1 };
+
+            var productViewModel = _fixture.ProductViewModel.GenerateValid();
+
+            var invalidNameRequest = new UpdateProductCommand(productViewModel.Id, _fixture.ProductViewModel.GenerateInvalid(InvalidProductViewModelField.NAME, productViewModel));
+            var invalidQuantityRequest = new UpdateProductCommand(productViewModel.Id, _fixture.ProductViewModel.GenerateInvalid(InvalidProductViewModelField.QUANTITY, productViewModel));
+            var firstInvalidPriceRequest = new UpdateProductCommand(productViewModel.Id, _fixture.ProductViewModel.GenerateInvalid(InvalidProductViewModelField.PRICE, productViewModel));
+            var secondInvalidPriceRequest = new UpdateProductCommand(productViewModel.Id, _fixture.ProductViewModel.GenerateInvalid(InvalidProductViewModelField.PRICE_LOWER_THAN_COST, productViewModel));
+            var firstInvalidCostRequest = new UpdateProductCommand(productViewModel.Id, _fixture.ProductViewModel.GenerateInvalid(InvalidProductViewModelField.COST, productViewModel));
+            var secondInvalidCostRequest = new UpdateProductCommand(productViewModel.Id, _fixture.ProductViewModel.GenerateInvalid(InvalidProductViewModelField.COST_HIGHER_THAN_PRICE, productViewModel));
 
             var sut = _fixture.UpdateProduct.GenerateValidHandler(product);
 
@@ -89,7 +82,8 @@ namespace Example.CleanArchitecture.UnitTests.Application.Commands
         {
             //Arrange
             var product = _fixture.Product.GenerateInvalid();
-            var request = _fixture.UpdateProduct.GenerateValidCommand();
+            var productViewModel = _fixture.ProductViewModel.GenerateValid();
+            var request = _fixture.UpdateProduct.GenerateCommandFromViewModel(productViewModel);
 
             var sut = _fixture.UpdateProduct.GenerateValidHandler(product);
 
@@ -106,7 +100,8 @@ namespace Example.CleanArchitecture.UnitTests.Application.Commands
         {
             //Arrange
             var product = _fixture.Product.GenerateValid();
-            var request = _fixture.UpdateProduct.GenerateValidCommand();
+            var productViewModel = _fixture.ProductViewModel.GenerateValid();
+            var request = _fixture.UpdateProduct.GenerateCommandFromViewModel(productViewModel);
 
             var sut = _fixture.UpdateProduct.GenerateInvalidHandler(product);
 

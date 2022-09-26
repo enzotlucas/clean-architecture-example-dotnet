@@ -12,7 +12,7 @@
 
         [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductViewModel))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         public async Task<IActionResult> GetById(Guid id)
         {
             var response = await _mediator.Send(new GetProductByIdQuery(id));
@@ -22,7 +22,7 @@
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ProductViewModel>))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         public async Task<IActionResult> Get(int? page, int? pageCount)
         {
             var response = await _mediator.Send(new GetProductsQuery(page, pageCount));
@@ -32,17 +32,17 @@
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ProductViewModel))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Post(CreateProductCommand product)
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        public async Task<IActionResult> Post(ProductViewModel product)
         {
-            var response = await _mediator.Send(product);
+            var response = await _mediator.Send(new CreateProductCommand(product));
 
             return CreatedAtAction(nameof(Post), response);
         }
 
         [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         public async Task<IActionResult> Delete(Guid id)
         {
             await _mediator.Send(new DeleteProductCommand(id));
@@ -52,13 +52,11 @@
 
         [HttpPut("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Put(Guid id, UpdateProductCommand command)
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        public async Task<IActionResult> Put(Guid id, ProductViewModel product)
         {
-            command.Id = id;
-
-            await _mediator.Send(command);
+            await _mediator.Send(new UpdateProductCommand(id, product));
 
             return NoContent();
         }

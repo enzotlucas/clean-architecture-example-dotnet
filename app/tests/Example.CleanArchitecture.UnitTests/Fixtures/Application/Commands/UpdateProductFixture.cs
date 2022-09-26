@@ -3,10 +3,6 @@ namespace Example.CleanArchitecture.UnitTests.Fixtures.Application.Commands
 {
     public class UpdateProductFixture
     {
-        private readonly Random _numberGenerator;
-
-        public UpdateProductFixture() => _numberGenerator = new Random();
-
         public UpdateProductCommandHandler GenerateValidHandler(Product product)
         {
             var uow = Substitute.For<IUnitOfWork>();
@@ -29,17 +25,6 @@ namespace Example.CleanArchitecture.UnitTests.Fixtures.Application.Commands
             return new UpdateProductCommandHandler(uow, logger);
         }
 
-        public UpdateProductCommand GenerateValidCommand() => new()
-        {
-            Id = Guid.NewGuid(),
-            Name = "Product name",
-            Price = _numberGenerator.Next(50, 100),
-            Cost = _numberGenerator.Next(10, 49),
-            Quantity = _numberGenerator.Next(1, 6),
-            Enabled = true,
-            Category = (Category)_numberGenerator.Next(0, 2)
-        };
-
-        public UpdateProductCommand GenerateInvalidCommand() => new();
+        public UpdateProductCommand GenerateCommandFromViewModel(ProductViewModel productViewModel) => new(productViewModel.Id, productViewModel);
     }
 }
