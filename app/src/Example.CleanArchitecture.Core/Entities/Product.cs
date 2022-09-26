@@ -1,16 +1,13 @@
 ﻿namespace Example.CleanArchitecture.Core.Entities
 {
-    public class Product
+    public class Product : Entity
     {
-        public Guid Id { get; private set; } = Guid.NewGuid();
         public string Name { get; private set; }
         public decimal Price { get; private set; }
         public decimal Cost { get; private set; }
         public int Quantity { get; private set; }
         public Category Category { get; private set; }
         public bool Enabled { get; private set; }
-        public DateTime CreatedAt { get; private set; }
-        public DateTime UpdatedAt { get; private set; }
 
         [NotMapped]
         public bool IsValid => Id != Guid.Empty;
@@ -31,8 +28,6 @@
             Quantity = quantity;
             Category = category;
             Enabled = true;
-            CreatedAt = DateTime.Now;
-            UpdatedAt = DateTime.Now;
 
             Validate(validator);
         }

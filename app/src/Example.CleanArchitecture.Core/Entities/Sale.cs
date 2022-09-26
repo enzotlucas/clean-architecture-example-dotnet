@@ -1,8 +1,7 @@
 ﻿namespace Example.CleanArchitecture.Core.Entities
 {
-    public class Sale
+    public class Sale : Entity
     {
-        public Guid Id { get; private set; } = Guid.NewGuid();
         public IEnumerable<SaleItem> Items { get; private set; }
         public decimal TotalPrice { get; private set; }
 
