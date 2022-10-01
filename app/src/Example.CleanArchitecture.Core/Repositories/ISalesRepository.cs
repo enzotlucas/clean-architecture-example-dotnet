@@ -2,6 +2,7 @@
 {
     public interface ISalesRepository : IRepository<Sale>
     {
-        Task DeleteSalesFromProduct(Product product);
+        Task DeleteSalesFromProductAsync(Product product);
+        Task<IEnumerable<Sale>> GetSalesAsync(int? page, int? rows);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Example.CleanArchitecture.API.Features.V1.Controllers
+﻿using Example.CleanArchitecture.Application.Queries.GetSales;
+
+namespace Example.CleanArchitecture.API.Features.V1.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
@@ -11,11 +13,11 @@
         public SalesController(IMediator mediator) => _mediator = mediator;
 
         [HttpGet]
-        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ProductViewModel>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<SaleViewModel>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         public async Task<IActionResult> Get(int? page, int? pageCount)
         {
-            var response = await _mediator.Send(new GetProductsQuery(page, pageCount));
+            var response = await _mediator.Send(new GetSalesQuery(page, pageCount));
 
             return Ok(response);
         }

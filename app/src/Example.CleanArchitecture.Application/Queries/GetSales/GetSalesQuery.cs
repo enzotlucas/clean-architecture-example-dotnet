@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Example.CleanArchitecture.Application.Queries.GetSales
+﻿namespace Example.CleanArchitecture.Application.Queries.GetSales
 {
-    public class GetSalesQuery
+    public class GetSalesQuery : IRequest<IEnumerable<SaleViewModel>>
     {
+        public int? Page { get; set; }
+        public int? Rows { get; set; }
 
+        public GetSalesQuery(int? page, int? rows)
+        {
+            Page = page;
+            Rows = rows;
+        }
     }
 }

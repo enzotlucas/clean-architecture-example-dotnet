@@ -40,7 +40,7 @@
 
         private async Task<bool> DeleteProductsAndSales(Product product)
         {
-            await _unitOfWork.Sales.DeleteSalesFromProduct(product);
+            await _unitOfWork.Sales.DeleteSalesFromProductAsync(product);
 
             await _unitOfWork.Products.DeleteAsync(product);
 
