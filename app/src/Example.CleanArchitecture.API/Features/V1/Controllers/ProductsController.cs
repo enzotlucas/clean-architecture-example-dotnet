@@ -1,4 +1,4 @@
-﻿namespace Example.CleanArchitecture.API.Controllers
+﻿namespace Example.CleanArchitecture.API.Features.V1.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
@@ -9,7 +9,7 @@
         private readonly IMediator _mediator;
 
         public ProductsController(IMediator mediator) => _mediator = mediator;
-
+        
         [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductViewModel))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]

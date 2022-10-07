@@ -13,15 +13,17 @@ global using AutoMapper;
 global using MediatR;
 
 //API
-global using Example.CleanArchitecture.API.Controllers;
+global using Example.CleanArchitecture.API.Features.V1.Controllers;
 
 //Application
 global using Example.CleanArchitecture.Application.Commands.CreateProduct;
+global using Example.CleanArchitecture.Application.Commands.UpdateProduct;
 global using Example.CleanArchitecture.Application.Commands.DeleteProduct;
 global using Example.CleanArchitecture.Application.Queries.GetProductById;
 global using Example.CleanArchitecture.Application.Queries.GetProducts;
 global using Example.CleanArchitecture.Application.ViewModels;
 global using Example.CleanArchitecture.Application.Services;
+global using Example.CleanArchitecture.Application.Queries.GetSales;
 
 //Core
 global using Example.CleanArchitecture.Core.Validators;

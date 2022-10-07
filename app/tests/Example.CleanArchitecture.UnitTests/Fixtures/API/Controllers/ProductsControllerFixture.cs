@@ -1,6 +1,4 @@
-﻿using Example.CleanArchitecture.Application.Commands.UpdateProduct;
-
-namespace Example.CleanArchitecture.UnitTests.Fixtures.API.Controllers
+﻿namespace Example.CleanArchitecture.UnitTests.Fixtures.API.Controllers
 {
     public class ProductsControllerFixture
     {

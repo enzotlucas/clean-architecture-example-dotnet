@@ -85,7 +85,7 @@ namespace Example.CleanArchitecture.UnitTests.API.Controllers
 
         [Trait("ProductsController", "API")]
         [Fact(DisplayName = "Try get a existing product but with invalid page or roll, should throw")]
-        public async Task Handle_ExistingProductsInvalidPagesAndRows_ShouldThrow()
+        public async Task Get_ExistingProductsInvalidPagesAndRows_ShouldThrow()
         {
             //Arrange
             var firstRequest = new GetProductsQuery(page: null, rows: 10);

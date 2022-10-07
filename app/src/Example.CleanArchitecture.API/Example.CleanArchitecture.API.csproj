@@ -43,6 +43,7 @@
 		<Using Include="Example.CleanArchitecture.Application.AutoMapper" />
 		<Using Include="Example.CleanArchitecture.Application.Services" />
 		<Using Include="Example.CleanArchitecture.Core.Exceptions" />
+		<Using Include="Example.CleanArchitecture.Application.Queries.GetSales" />
 		
 		<Using Include="Microsoft.AspNetCore.Mvc.ApiExplorer" />
 		<Using Include="Microsoft.OpenApi.Models" />

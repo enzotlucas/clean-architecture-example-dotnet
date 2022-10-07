@@ -1,6 +1,4 @@
-﻿using Example.CleanArchitecture.Application.Queries.GetSales;
-
-namespace Example.CleanArchitecture.API.Features.V1.Controllers
+﻿namespace Example.CleanArchitecture.API.Features.V1.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]
