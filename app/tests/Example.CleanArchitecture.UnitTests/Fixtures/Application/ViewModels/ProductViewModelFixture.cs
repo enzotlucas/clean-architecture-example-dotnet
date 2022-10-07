@@ -6,17 +6,6 @@
 
         public ProductViewModelFixture() => _numberGenerator = new Random();
 
-        public ProductViewModel GenerateValidFromEntity(Product product) => new()
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Price = product.Price,
-            Cost = product.Cost,
-            Quantity = product.Quantity,
-            Category = product.Category,
-            Enabled = product.Enabled
-        };
-
         public ProductViewModel GenerateValid() => GenerateValidCollection(1).First();
 
         public IEnumerable<ProductViewModel> GenerateValidCollection(int quantity) =>
@@ -38,6 +27,17 @@
 
             return response;
         }
+
+        public ProductViewModel GenerateValidFromEntity(Product product) => new()
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Price = product.Price,
+            Cost = product.Cost,
+            Quantity = product.Quantity,
+            Category = product.Category,
+            Enabled = product.Enabled
+        };
 
         public ProductViewModel GenerateInvalid(InvalidProductViewModelField invalidField, ProductViewModel productViewModel)
         {

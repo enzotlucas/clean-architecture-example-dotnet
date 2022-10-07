@@ -3,6 +3,6 @@
     public interface ISalesRepository : IRepository<Sale>
     {
         Task DeleteSalesFromProductAsync(Product product);
-        Task<IEnumerable<Sale>> GetSalesAsync(int? page, int? rows);
+        Task<IEnumerable<Sale>> GetAllAsync(int? page, int? rows);
     }
 }

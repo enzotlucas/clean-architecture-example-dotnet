@@ -22,7 +22,7 @@ namespace Example.CleanArchitecture.Infrastructure.Persistence.Repositories
             });
         }
 
-        public async Task<IEnumerable<Sale>> GetSalesAsync(int? page, int? rows)
+        public async Task<IEnumerable<Sale>> GetAllAsync(int? page, int? rows)
         {
             var query =
                 @"SELECT *

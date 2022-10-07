@@ -16,5 +16,22 @@
                                                                              .RuleFor(s => s.Quantity, _numberGenerator.Next(1, 10))
                                                                              .Generate(_numberGenerator.Next(1, 4)))
                                       .Generate(quantity);
+
+        public IEnumerable<SaleViewModel> GenerateValidCollectionFromEntity(IEnumerable<Sale> sales)
+        {
+            var response = new List<SaleViewModel>();
+
+            foreach (var sale in sales)
+                response.Add(GenerateValidFromEntity(sale));
+
+            return response;
+        }
+
+        public SaleViewModel GenerateValidFromEntity(Sale sale) => new()
+        {
+            Id = sale.Id,
+            Items = sale.Items.Select(s => new SaleItemViewModel { ProductId = s.ProductId, Quantity = s.Quantity}),
+            TotalPrice = sale.TotalPrice
+        };
     }
 }

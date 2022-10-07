@@ -41,3 +41,5 @@ global using Example.CleanArchitecture.UnitTests.Fixtures.Queries;
 global using Example.CleanArchitecture.UnitTests.Fixtures.Application.ViewModels;
 global using Example.CleanArchitecture.UnitTests.Fixtures.API.Controllers;
 global using Example.CleanArchitecture.UnitTests.Fixtures.Application.Commands;
+global using Example.CleanArchitecture.UnitTests.Fixtures.Core.Entities;
+global using Example.CleanArchitecture.UnitTests.Fixtures.Application.Queries;

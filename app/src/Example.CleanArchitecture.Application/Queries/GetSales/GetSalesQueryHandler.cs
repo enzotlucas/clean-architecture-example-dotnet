@@ -20,7 +20,7 @@
             if (request is null || request.Rows is null || request.Rows < 1 || request.Page is null || request.Page < 1)
                 throw new BusinessException("The number of page and row need to be at least one");
 
-            var sales = await _unitOfWork.Sales.GetSalesAsync(request.Page, request.Rows);
+            var sales = await _unitOfWork.Sales.GetAllAsync(request.Page, request.Rows);
 
             _logger.LogInformation("Sales was queried", sales);
 

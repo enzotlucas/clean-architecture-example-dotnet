@@ -2,13 +2,15 @@
 {
     public sealed class SaleItemFixture
     {
+        private readonly ProductFixture _product = new();
+
         public SaleItem GenerateValid(Product product) =>
             GenerateValidCollection(1, product).FirstOrDefault();
 
-        public IEnumerable<SaleItem> GenerateValidCollection(int quantity, Product product) =>
+        public IEnumerable<SaleItem> GenerateValidCollection(int quantity, Product product = null) =>
             new Faker<SaleItem>().CustomInstantiator(s =>
                      new SaleItem(quantity: new Random().Next(1, 5),
-                                  product: product))
+                                  product: product ?? _product.GenerateValid()))
                                  .Generate(quantity);
 
         public SaleItem GenerateInvalid() =>
