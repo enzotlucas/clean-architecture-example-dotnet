@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{0918700C-7E89-4004-AE70-A7BB814B5EF0}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CD738F1D-39ED-41FE-A4CC-12EA4B5CBF0D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{40DB77E9-3EFA-4665-9FF0-448A6FA6308E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{C2B0B178-EFBB-4A2D-B2BB-3C3EF158E1B6}"
+	ProjectSection(SolutionItems) = preProject
+		docker\docker-compose.yml = docker\docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Organization.TodoApp.API", "src\Organization.TodoApp.API\Organization.TodoApp.API.csproj", "{D66EA024-1D50-4D34-97D7-451083C75D1E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Organization.TodoApp.Tests", "tests\Organization.TodoApp.Tests\Organization.TodoApp.Tests.csproj", "{5CEFBDAE-B94E-48C9-978C-18161A070228}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D66EA024-1D50-4D34-97D7-451083C75D1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D66EA024-1D50-4D34-97D7-451083C75D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D66EA024-1D50-4D34-97D7-451083C75D1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D66EA024-1D50-4D34-97D7-451083C75D1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CEFBDAE-B94E-48C9-978C-18161A070228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CEFBDAE-B94E-48C9-978C-18161A070228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CEFBDAE-B94E-48C9-978C-18161A070228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CEFBDAE-B94E-48C9-978C-18161A070228}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D66EA024-1D50-4D34-97D7-451083C75D1E} = {CD738F1D-39ED-41FE-A4CC-12EA4B5CBF0D}
+		{5CEFBDAE-B94E-48C9-978C-18161A070228} = {40DB77E9-3EFA-4665-9FF0-448A6FA6308E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FFEC340C-4BB2-4CC3-B556-9D733B499C9A}
+	EndGlobalSection
+EndGlobal

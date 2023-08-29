@@ -1,7 +1,5 @@
 # clean-architecture-example-dotnet
+This repository contains some examples of clean architecture implementations
 
-
-Add migrations
-```
-Update-Database
-```
+## Give a star
+If you found the project helpful or just want to help the developer, give the project a star!

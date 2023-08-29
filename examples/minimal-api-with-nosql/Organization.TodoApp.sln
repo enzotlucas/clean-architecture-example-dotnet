@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{65FAB2F1-82FF-47C6-A848-85A0D069C863}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{64A7890D-124D-49CE-9D80-42808B4EE9C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{162E0689-D9AE-44C9-BDE0-F7FE15AF73F0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{96C35048-EDA0-423F-85D8-A18B3724E6A5}"
+	ProjectSection(SolutionItems) = preProject
+		docker\docker-compose.yml = docker\docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Organization.TodoApp.API", "src\Organization.TodoApp.API\Organization.TodoApp.API.csproj", "{6553788D-DFC5-4371-801B-6A9A21DACCE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Organization.TodoApp.Tests", "tests\Organization.TodoApp.Tests\Organization.TodoApp.Tests.csproj", "{C445D2FB-D88D-4159-ABCE-7402493321E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6553788D-DFC5-4371-801B-6A9A21DACCE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6553788D-DFC5-4371-801B-6A9A21DACCE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6553788D-DFC5-4371-801B-6A9A21DACCE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6553788D-DFC5-4371-801B-6A9A21DACCE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C445D2FB-D88D-4159-ABCE-7402493321E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C445D2FB-D88D-4159-ABCE-7402493321E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C445D2FB-D88D-4159-ABCE-7402493321E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C445D2FB-D88D-4159-ABCE-7402493321E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6553788D-DFC5-4371-801B-6A9A21DACCE9} = {162E0689-D9AE-44C9-BDE0-F7FE15AF73F0}
+		{C445D2FB-D88D-4159-ABCE-7402493321E2} = {64A7890D-124D-49CE-9D80-42808B4EE9C2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC71A951-58C7-408A-AF09-E44AE9312869}
+	EndGlobalSection
+EndGlobal
